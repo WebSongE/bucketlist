@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react";
 const AddBucket = () => {
     const [bucket, setBucket] = useState("");
@@ -35,6 +36,21 @@ const AddBucket = () => {
             </form>
             <button>Cancel</button>
         </div>
+=======
+
+const AddBucket = () => {
+    return (
+        <>
+            <div className="AddBucket">
+                <h1>제목</h1>
+                <form>
+                    <input placeholder="내용을 입력하세요" />
+                    <input type="submit" />
+                </form>
+                <button>Cancel</button>
+            </div>
+        </>
+>>>>>>> 4f7511663e7d3db393dafbebe388518c2ea9f6eb
     );
 };
 
