@@ -7,11 +7,10 @@ const Bucket = ({ user }) => {
     useEffect(() => {
         dbService
             .collection("buckets")
-            .orderBy("dateAt", "desc");
+            .orderBy("dateAt", "desc")
             .onSnapshot((snapshot) => {
                 const newArray = snapshot.docs.map((document) => {
-                    id: document.id,
-                        ...document.data(),
+                    id: document.id, ...document.data()
 }));
     setBuckets(newArray);
 });
