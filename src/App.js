@@ -1,21 +1,27 @@
-import AppRouter from "router.js";
-<<<<<<< HEAD
-import AddBucket from "components/AddBucket.js";
+import { authService } from 'fbase.js';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 function App() {
+    const [init, setInit] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsLoggedIn(true);
+                const uid = user.uid;
+            } else {
+                setIsLoggedIn(false);
+            }
+            setInit(true);
+        });
+    }, []);
     return (
-        <div className="App">
-            <AppRouter/>
-        </div>
+        <>
+            {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing..."}
+            <footer>&copy; {new Date().getFullYear()} Bucketlist</footer>
+        </>
     );
-=======
-function App() {
-  return (
-      <div className="App">
-          <h1>ghk</h1>
-         <AppRouter/> 
-    </div>
-  );
->>>>>>> 4f7511663e7d3db393dafbebe388518c2ea9f6eb
 }
 
 export default App;
