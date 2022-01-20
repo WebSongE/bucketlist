@@ -1,5 +1,7 @@
+import React, { useState, useEffect } from 'react';
+import AppRouter from 'router';
 import { authService } from 'fbase.js';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/compat/auth";
 
 function App() {
     const [init, setInit] = useState(false)
