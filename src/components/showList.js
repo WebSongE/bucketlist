@@ -4,10 +4,10 @@ import { useState } from "react";
 const ShowList=({ bucketObject }) => {
     const [edit, setEdit] = useState(false);
     const [newBucket, setNewBucket] = useState(bucketObject.text);
-    const onClickDelete = (event) => {
-        const confirm = window.confirm("»èÁ¦ÇÏ½Ã°Ú½À´Ï±î?");
+    const onClickDelete = async (event) => {
+        const confirm = window.confirm("ì •ë§ë¡œ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
         if (confirm) {
-            await dbService.doc('buckets/${bucketObject.id}').delete();
+           await dbService.doc('buckets/${bucketObject.id}').delete();
         }
     };
     const onChange = (event) => {
@@ -27,10 +27,10 @@ const ShowList=({ bucketObject }) => {
             {edit ? (
                 <div>
                     <form onSubmit={onSubmit}>
-                        <input onChange={onChange} value={newBucket} required placeholder="³»¿ë ¼öÁ¤" autoFocus />
-                        <input type="submit" value="¾÷µ¥ÀÌÆ®" />
+                        <input onChange={onChange} value={newBucket} required placeholder="ë‚´ìš© ìˆ˜ì •" autoFocus />
+                        <input type="submit" value="ì—…ë°ì´íŠ¸" />
                     </form>
-                    <button type="button" onClick={isEditing}>Ãë¼Ò</button>
+                    <button type="button" onClick={isEditing}>ï¿½ï¿½ï¿½</button>
                 </div>
             ) : (
                 <div>
