@@ -4,11 +4,10 @@ import { useState } from "react";
 const Bucket = ({ user }) => {
     const [buckets, setBuckets] = useState([]);
 
-    useEffect(() => {
-        dbService
-            .collection("buckets")
-            .orderBy("dateAt", "desc");
-            .onSnapshot((snapshot) => {
+    useEffect(() => { dbService
+        .collection("buckets")
+        .orderBy("dateAt", "desc");
+        .onSnapshot((snapshot) => {
                 const newArray = snapshot.docs.map((document) => {
                     id: document.id,
                         ...document.data(),
@@ -23,5 +22,6 @@ const Bucket = ({ user }) => {
                 {buckets.map((bucket) => (
                     <ShowList key={bucket.id} bucketObject={bucket}/>
             </div>
+        </div>
         );
-};
+}
