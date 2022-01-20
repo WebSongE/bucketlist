@@ -1,4 +1,4 @@
-const EditProfile.js = () => {
+const EditProfile = () => {
     return (
         <div />
     );
