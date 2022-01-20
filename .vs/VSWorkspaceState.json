@@ -3,8 +3,9 @@
     "",
     "\\public",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\routes"
   ],
-  "SelectedNode": "\\jsconfig.json",
+  "SelectedNode": "\\src\\App.js",
   "PreviewInSolutionExplorer": false
 }

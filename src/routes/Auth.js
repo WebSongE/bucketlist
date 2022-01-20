@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
     getAuth,
+    onAuthStateChanged,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     GithubAuthProvider,
     GoogleAuthProvider,
     signInWithPopup,
 } from '@firebase/auth';
-import { authService } from '../fbase';
+import { authService } from 'fbase';
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const Auth = () => {
         } catch (error) {
             setError(error.message);
         }
-
+        
     };
 
     const toggleAccount = () => setNewAccount((prev) => !prev);
