@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import {dbService} from "fbase.js";
 
-const AddBucket = () => {
+const AddBucket = ({userObject}) => {
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
+    const [tagArray,setTagArray]=useState([]);
+
     const onChange = (event) => {
         event.preventDefault();
         const {
@@ -20,10 +23,12 @@ const AddBucket = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         if (newBucket === "") return;
+        setTagArray(tagArray.split("#"));
         await dbService.collection("buckets").add({
             text: newBucket,
             dateAt: Date.now(),
-            userId: user.uid,
+            userId: userObject.uid,
+            tags: tagArray
         });
         setNewBucket("");
         setNewTags("");
@@ -32,9 +37,9 @@ const AddBucket = () => {
         <section>
             <div className="AddBucket">
                 <form onSubmit={onSubmit}>
-                    <input value={newBucket} type="text" onChange={onChange} placeholder="ÀÌ·ç°í½ÍÀº ÀÏÀ» Àû¾îº¸¼¼¿ä!" />
+                    <input value={newBucket} type="text" onChange={onChange} placeholder="ì´ë£¨ê³ ì‹¶ì€ ì¼ì„ ì ì–´ë³´ì„¸ìš”!" />
                     <input type="submit" />
-                    <input value={tags} type="text" onChange={onChangeTags} placeholder="'#', ',' ,' ' À¸·Î ÅÂ±×¸¦ Ãß°¡ÇÒ ¼ö ÀÖ½À´Ï´Ù"/>
+                    <input value={tags} type="text" onChange={onChangeTags} placeholder="ê³µë°±ì—†ì´ '#'ìœ¼ë¡œ íƒœê·¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤"/>
                 </form>
                 <button type="button">Cancel</button>
             </div>
