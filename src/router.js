@@ -1,28 +1,26 @@
-import { BrowserRouter, Route } from "react-router-dom";
-import Home from 'components/Home.js';
-import AddBucket from "components/AddBucket.js";
-import Profile from 'routes/Profile.js';
-import Auth from "routes/Auth";
+import { BrowserRouter, Route,Routes } from "react-router-dom";
+import Auth from 'routes/Auth.js';
+import AddBucket from 'components/AddBucket.js';
 import Navigation from "components/Navigation";
-const AppRouter = ({ isLoggedIn }) => {
+import Profile from 'routes/Profile.js';
+
+const AppRouter = ({ isLoggedIn,userObject }) => {
     return (
         <BrowserRouter>
-            {isLoggedIn && <Navigation userObj={userObj}/>}
+            {isLoggedIn && <Navigation userObj={userObject}/>}
             <Routes>
                 {isLoggedIn ? (
                     <>
                         
                         <Route exact path="/profile" element={
-                            <Profile userObj={userObj} />
+                            <Profile userObj={userObject} />
                         } />
                         <Route path='/add-bucketlist' element={
-                            <AddBucket userObj={userObj} />
+                            <AddBucket userObj={userObject} />
                         } />
-                        
                     </>
                 ) : (
                     <Route exact path="/" element={<Auth />} />
-                    
                 )}
             </Routes>
         </BrowserRouter>
