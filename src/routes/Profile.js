@@ -1,10 +1,10 @@
-import { authService } from "fbase";
+import { authService,dbService } from "fbase";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 //import { updateProfile } from "@firebase/auth";
-const Profile = () => {
+const Profile = ({userObj}) => {
     const navigate = useNavigate();
     const onLogOutClick = () => {
     authService.signOut();
@@ -23,8 +23,7 @@ const Profile = () => {
     };
     useEffect(() => {
         getMyBuckets();
-    
-    }, [])
+    })
     return (
         <>
         <form>
