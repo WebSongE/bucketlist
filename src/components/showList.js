@@ -1,5 +1,6 @@
-import { dbService, storageService } from "fbase";
+import { dbService} from "fbase";
 import { useState } from "react";
+import {deleteDoc, doc,updateDoc} from "firebase/firestore";
 
 const ShowList=({ bucketObject }) => {
     const [edit, setEdit] = useState(false);
@@ -7,7 +8,7 @@ const ShowList=({ bucketObject }) => {
     const onClickDelete = async (event) => {
         const confirm = window.confirm("정말로 삭제하시겠습니까?");
         if (confirm) {
-           await dbService.doc('buckets/${bucketObject.id}').delete();
+           await deleteDoc(doc(dbService,'buckets',bucketObject.id));
         }
     };
     const onChange = (event) => {
@@ -19,9 +20,10 @@ const ShowList=({ bucketObject }) => {
     const isEditing = () => setEdit((prev) => !prev);
     const onSubmit = async (event) => {
         event.preventDefault();
-        await dbService.doc('buckets/${bucketObject.id}').update({ text: newBucket });
+        await updateDoc(doc(dbService,'buckets',bucketObject.id),{ text: newBucket });
         setEdit(false);
     };
+    
     return (
         <section>
             {edit ? (
