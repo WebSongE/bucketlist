@@ -3,6 +3,7 @@ import {getStorage} from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyC4LoKyuGSomTvuRA7uT5aXOrh4WQbic2w",
     authDomain: "bucketlist-ef183.firebaseapp.com",
