@@ -1,11 +1,24 @@
-import { useState } from "react";
-import {dbService} from "fbase.js";
-
+import { useEffect, useState } from "react";
+import {dbService} from "fbase";
+import {collection,doc,updateDoc} from "firebase/firestore";
 const AddBucket = ({userObject}) => {
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
     const [tagArray,setTagArray]=useState([]);
+    const [userTags,setUserTags]=useState(new Map());
 
+    useEffect=()=>{
+        const data=doc(dbService,'userContents/%{userObject.id}');
+        if(data){
+            setUserTags(data);
+        }
+        else {
+            collection("userContents").add({
+                userId:userObject.id,
+                userAllTags:userTags,
+            });
+        }
+    }
     const onChange = (event) => {
         event.preventDefault();
         const {
@@ -20,18 +33,28 @@ const AddBucket = ({userObject}) => {
         } = event;
         setNewTags(value);
     }
+    const allInit=()=>{
+        setNewBucket("");
+        setNewTags("");
+        setTagArray([]);
+        setUserTags(new Map());
+    }
     const onSubmit = async (event) => {
         event.preventDefault();
         if (newBucket === "") return;
         setTagArray(tagArray.split("#"));
-        await dbService.collection("buckets").add({
+        await collection("buckets").add({
             text: newBucket,
             dateAt: Date.now(),
             userId: userObject.uid,
             tags: tagArray
         });
-        setNewBucket("");
-        setNewTags("");
+        tagArray.forEach((item)=>{
+            if(userTags.has(item)===false) userTags.set(item,true);
+        });
+        updateDoc(doc(dbService,"userContents",userObject.id),{userAllTags:userTags});
+        if(collection("userContents"))
+        allInit();
     };
     return (
         <section>
