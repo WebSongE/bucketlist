@@ -4,7 +4,7 @@ import AddBucket from 'components/AddBucket.js';
 import Navigation from "components/Navigation";
 import Profile from 'routes/Profile.js';
 
-const AppRouter = ({ isLoggedIn,userObject }) => {
+const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
     return (
         <BrowserRouter>
             {isLoggedIn && <Navigation userObj={userObject}/>}
@@ -13,7 +13,7 @@ const AppRouter = ({ isLoggedIn,userObject }) => {
                     <>
                         
                         <Route exact path="/profile" element={
-                            <Profile userObj={userObject} />
+                            <Profile userObj={userObject} refreshUser={{refreshUser}}/>
                         } />
                         <Route path='/add-bucketlist' element={
                             <AddBucket userObj={userObject} />
