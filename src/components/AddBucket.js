@@ -55,6 +55,7 @@ const AddBucket = ({userObject}) => {
             dateAt: Date.now(),
             expiredAt: expiredDate,
             userId: userObject.uid,
+            completed:false,
             tags: tagArray
         });
         tagArray.forEach((item)=>{
