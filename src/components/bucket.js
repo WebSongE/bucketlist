@@ -1,7 +1,7 @@
 import { dbService } from "fbase";
 import { useState,useEffect } from "react";
-import AddBucket from "AddBucket";
-import ShowList from "showList";
+import AddBucket from "./AddBucket";
+import ShowList from "./showList";
 
 const Bucket = ({ userObject }) => {
     const [buckets, setBuckets] = useState([]);

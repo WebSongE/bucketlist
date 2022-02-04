@@ -6,12 +6,13 @@ function App() {
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {
-        setUserObj({
-            displayName: user.displayName,
-            uid: user.uid,
-            updateProfile: (args) => user.updateProfile(args),
-          });
+        if (user) {
+            setUserObj({
+                displayName: authService.currentUser.displayName
+                ? authService.currentUser.displayName
+                : 'Anonymous',
+                uid: authService.currentUser.uid,
+            });
         }
         setInit(true);
       });
