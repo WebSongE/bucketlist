@@ -8,7 +8,7 @@ const Bucket = ({ userObject }) => {
     useEffect(() => {
         dbService
             .collection("buckets")
-            .orderBy("dateAt", "desc")
+            .orderBy("expiredAt")
             .onSnapshot((snapshot) => {
             const newArray = snapshot.docs.map((document) => ({
                 id: document.id,
