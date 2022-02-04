@@ -6,7 +6,7 @@ const AddBucket = ({userObject}) => {
     const [tags, setNewTags] = useState("");
     const [tagArray,setTagArray]=useState([]);
     const [userTags,setUserTags]=useState(new Map());
-
+    const [expiredDate,setNewExpiredDate]=useState(new Date());
     useEffect=()=>{
         const data=doc(dbService,'userContents/%{userObject.id}');
         if(data){
@@ -25,6 +25,13 @@ const AddBucket = ({userObject}) => {
             target: { value },
         } = event;
         setNewBucket(value);
+    }
+    const onChangeDate = (event) => {
+        event.preventDefault();
+        const {
+            target: { value },
+        } = event;
+        setNewExpiredDate(value);
     }
     const onChangeTags = (event) => {
         event.preventDefault();
@@ -46,6 +53,7 @@ const AddBucket = ({userObject}) => {
         await collection("buckets").add({
             text: newBucket,
             dateAt: Date.now(),
+            expiredAt: expiredDate,
             userId: userObject.uid,
             tags: tagArray
         });
@@ -61,6 +69,7 @@ const AddBucket = ({userObject}) => {
             <div className="AddBucket">
                 <form onSubmit={onSubmit}>
                     <input value={newBucket} type="text" onChange={onChange} placeholder="이루고싶은 일을 적어보세요!" />
+                    <i0nput value={expiredDate} type="date" onChange={onChangeDate} placeholder="마감 기한"/>
                     <input type="submit" />
                     <input value={tags} type="text" onChange={onChangeTags} placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다"/>
                 </form>
