@@ -4,10 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 import { updateProfile } from "@firebase/auth";
 import { collection, getDocs, query, where } from "@firebase/firestore";
+import ShowList from "components/showList";
 
-const Profile = ({ refreshUser, userObj}) => {
+export default ({ refreshUser, userObject}) => {
+    const [buckets, setBuckets] = useState([]);
+    useEffect(() => {
+        dbService
+            .collection("buckets")
+            .orderBy("dateAt", "desc")
+            .onSnapshot((snapshot) => {
+            const newArray = snapshot.docs.map((document) => ({
+                id: document.id,
+                ...document.data(),
+            }));
+            setBuckets(newArray);
+        });
+    }, []);
     const navigate = useNavigate();
-    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+    const [newDisplayName, setNewDisplayName] = useState(userObject.displayName);
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
@@ -21,8 +35,8 @@ const Profile = ({ refreshUser, userObj}) => {
     };
     const onSubmit = async(event) => {
         event.preventDefault();
-        if (userObj.displayName !== newDisplayName) {
-            await userObj.updateProfile ({
+        if (userObject.displayName !== newDisplayName) {
+            await userObject.updateProfile ({
                 displayName: newDisplayName,
             });
             refreshUser();
@@ -30,14 +44,19 @@ const Profile = ({ refreshUser, userObj}) => {
     };
 
     return (
-        <>
+        <><>
             <form>
                 <input type="text" placeholder="Display name" />
                 <input type="submit" value="Update Profile" />
             </form>
             <button onClick={onLogOutClick}>Log Out</button>
         </>
+            <div>
+                {buckets&&buckets.map((bucket) => (
+                    <ShowList key={bucket.id} bucketObject={bucket} />
+                ))}
+            </div>
+            </>
     );
 };
 
-export default Profile;
