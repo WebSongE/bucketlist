@@ -3,6 +3,7 @@ import Auth from 'routes/Auth.js';
 import AddBucket from 'components/AddBucket.js';
 import Navigation from "components/Navigation";
 import Profile from 'routes/Profile.js';
+import SearchUsers from "components/SearchUsers";
 
 const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
     return (
@@ -17,6 +18,9 @@ const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
                         } />
                         <Route path='/add-bucketlist' element={
                             <AddBucket userObj={userObject} />
+                        } />
+                        <Route path='/search' element={
+                            <SearchUsers />
                         } />
                     </>
                 ) : (

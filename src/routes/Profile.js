@@ -1,4 +1,5 @@
 import { authService,dbService } from "fbase";
+import { getAuth } from "firebase/auth";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
@@ -9,7 +10,7 @@ const Profile = ({ refreshUser, userObj}) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
-        authService.signOut();
+        getAuth().signOut();
         navigate("/");
     };
 

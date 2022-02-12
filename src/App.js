@@ -33,7 +33,7 @@ function App() {
              userObj={userObj}
            />
          ) : (
-           "Initializing..."
+           <span>Initializing...</span>
          )}
     </>
   );
