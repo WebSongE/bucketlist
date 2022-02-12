@@ -8,16 +8,16 @@ import SearchUsers from "components/SearchUsers";
 const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
     return (
         <BrowserRouter>
-            {isLoggedIn && <Navigation userObj={userObject}/>}
+            {isLoggedIn && <Navigation userObject={userObject}/>}
             <Routes>
                 {isLoggedIn ? (
                     <>
                         
                         <Route exact path="/profile" element={
-                            <Profile userObj={userObject} refreshUser={{refreshUser}}/>
+                            <Profile userObject={userObject} refreshUser={{refreshUser}}/>
                         } />
-                        <Route path='/add-bucketlist' element={
-                            <AddBucket userObj={userObject} />
+                        <Route path='/bucket' element={
+                            <AddBucket userObject={userObject} />
                         } />
                         <Route path='/search' element={
                             <SearchUsers />
