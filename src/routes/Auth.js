@@ -6,8 +6,7 @@ import {
     GithubAuthProvider,
     GoogleAuthProvider,
     signInWithPopup,
-} from '@firebase/auth';
-import { authService } from 'fbase';
+} from 'firebase/auth';
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -49,18 +48,19 @@ const Auth = () => {
         const {
             target: { name },
         } = event;
+        const auth=getAuth();
         let provider;
         try {
             if (name === "google") {
                 provider = new GoogleAuthProvider();
-                const result = await signInWithPopup(authService, provider);
+                const result = await signInWithPopup(auth, provider);
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                // const token = credential.accessToken;
+                const token = credential.accessToken;
             } else if (name === "github") {
                 provider = new GithubAuthProvider();
-                const result = await signInWithPopup(authService, provider);
+                const result = await signInWithPopup(auth, provider);
                 const credential = GithubAuthProvider.credentialFromResult(result);
-                // const token = credential.accessToken;
+                const token = credential.accessToken;
             }
 
         } catch (error) {
