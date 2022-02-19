@@ -1,4 +1,5 @@
 import { authService,dbService } from "fbase";
+import { getAuth } from "firebase/auth";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
@@ -23,7 +24,7 @@ export default ({ refreshUser, userObject}) => {
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState(userObject.displayName);
     const onLogOutClick = () => {
-        authService.signOut();
+        getAuth().signOut();
         navigate("/");
     };
 
