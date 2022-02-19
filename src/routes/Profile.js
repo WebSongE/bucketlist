@@ -1,5 +1,4 @@
 import { authService,dbService } from "fbase";
-import { getAuth } from "firebase/auth";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
@@ -7,8 +6,8 @@ import { updateProfile } from "@firebase/auth";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import ShowList from "components/showList";
 
-export default ({ refreshUser, userObject}) => {
-    const [buckets, setBuckets] = useState([]);
+export default ({ refreshUser, userObj}) => {
+    const [buckets, setBuckets] = useState();
     useEffect(() => {
         dbService
             .collection("buckets")
@@ -22,9 +21,9 @@ export default ({ refreshUser, userObject}) => {
         });
     }, []);
     const navigate = useNavigate();
-    const [newDisplayName, setNewDisplayName] = useState(userObject.displayName);
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
-        getAuth().signOut();
+        authService.signOut();
         navigate("/");
     };
 
@@ -36,9 +35,9 @@ export default ({ refreshUser, userObject}) => {
     };
     const onSubmit = async(event) => {
         event.preventDefault();
-        if (userObject.displayName !== newDisplayName) {
-            await userObject.updateProfile ({
-                displayName: newDisplayName,
+        if (userObj.displayName !== newDisplayName) {
+            await userObj.updateProfile ({
+                displayName: newDisplayName
             });
             refreshUser();
         }
