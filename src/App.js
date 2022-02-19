@@ -8,10 +8,11 @@ function App() {
     authService.onAuthStateChanged((user) => {
         if (user) {
             setUserObj({
-                displayName: authService.currentUser.displayName
-                ? authService.currentUser.displayName
+                displayName: user.displayName
+                ? user.displayName
                 : 'Anonymous',
-                uid: authService.currentUser.uid,
+                uid: user.uid,
+                updateProfile: (args) => user.updateProfile(args),
             });
         }
         setInit(true);
@@ -34,7 +35,7 @@ function App() {
              userObj={userObj}
            />
          ) : (
-           <span>Initializing...</span>
+           "Initializing..."
          )}
     </>
   );

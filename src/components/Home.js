@@ -1,7 +1,9 @@
 import React from "react";
-const Home = () => <div>
-    <form>
-        <input type="text" placeholder="Write your bucketlist" maxLength={120} />
-    </form>
-</div>
+const Home = () => {
+    return (
+        <div>
+            <h2>HOME</h2>
+        </div>
+    );
+};
 export default Home;
