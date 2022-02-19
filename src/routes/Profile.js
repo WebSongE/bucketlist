@@ -1,13 +1,11 @@
-import { authService,dbService } from "fbase";
+import { dbService } from "fbase";
 import { getAuth } from "firebase/auth";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
-import { updateProfile } from "@firebase/auth";
-import { collection, getDocs, query, where } from "@firebase/firestore";
 import ShowList from "components/showList";
 
-export default ({ refreshUser, userObject}) => {
+const Profile= ({ refreshUser, userObject}) => {
     const [buckets, setBuckets] = useState([]);
     useEffect(() => {
         dbService
@@ -48,7 +46,7 @@ export default ({ refreshUser, userObject}) => {
         <><>
             <form>
                 <input type="text" placeholder="Display name" />
-                <input type="submit" value="Update Profile" />
+                <input onSubmit={onSubmit} type="submit" value="Update Profile" />
             </form>
             <button onClick={onLogOutClick}>Log Out</button>
         </>
@@ -61,3 +59,4 @@ export default ({ refreshUser, userObject}) => {
     );
 };
 
+export default Profile;
