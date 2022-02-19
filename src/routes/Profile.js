@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 import ShowList from "components/showList";
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default ({ refreshUser, userObj}) => {
+const Profile=({ refreshUser, userObj})=>{
     const [buckets, setBuckets] = useState();
     useEffect(() => {
         dbService
@@ -58,4 +57,6 @@ export default ({ refreshUser, userObj}) => {
             </div>
             </>
     );
-};
+}
+
+export default Profile;
