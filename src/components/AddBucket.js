@@ -53,8 +53,8 @@ const AddBucket = ({userObject}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         if (newBucket === "") return;
-        setTagArray(tagArray.split("#"));
-        await collection("buckets").add({
+        setTagArray(tags.split('#').join(',').split(' ').join(',').split(','));
+        await dbService.collection("buckets").add({
             text: newBucket,
             dateAt: Date.now(),
             expiredAt: expiredDate,
