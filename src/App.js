@@ -7,15 +7,15 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
         if (user) {
-            setUserObj({
-                displayName: user.displayName
-                ? user.displayName
-                : 'Anonymous',
-                uid: user.uid,
-                updateProfile: (args) => user.updateProfile(args),
-            });
+          setInit(true);
+          setUserObj({
+              displayName: user.displayName
+              ? user.displayName
+              : 'Anonymous',
+              uid: user.uid,
+              updateProfile: (args) => user.updateProfile(args),
+          });
         }
-        setInit(true);
       });
     }, []);
     const refreshUser = () => {
