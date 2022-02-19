@@ -9,6 +9,9 @@ const Navigation = ({ userObject }) =>
         <li>
             <Link to="/profile"> Profile</Link>
         </li>
+        <li>
+            <Link to="/bucket"> add Bucket</Link>
+        </li>
     </ul>
 
 </nav>
