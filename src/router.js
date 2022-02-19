@@ -3,6 +3,8 @@ import Auth from 'routes/Auth.js';
 import AddBucket from 'components/AddBucket.js';
 import Navigation from "components/Navigation";
 import Profile from 'routes/Profile.js';
+import SearchUsers from "components/SearchUsers";
+import Home from "components/Home";
 
 const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
     return (
@@ -11,12 +13,15 @@ const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
             <Routes>
                 {isLoggedIn ? (
                     <>
-                        
+                        <Route exact path="/" element={<Home />} />
                         <Route exact path="/profile" element={
                             <Profile userObject={userObject} refreshUser={{refreshUser}}/>
                         } />
                         <Route path='/bucket' element={
                             <AddBucket userObject={userObject} />
+                        } />
+                        <Route path='/search' element={
+                            <SearchUsers />
                         } />
                     </>
                 ) : (

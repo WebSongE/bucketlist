@@ -1,5 +1,7 @@
-import {getAuth} from "firebase/auth";
-const AddFollow=()=>{
+import { getAuth } from "firebase/auth";
+
+const SearchUsers=()=>{
+    
     const userList=(nextPageToken)=>{
         getAuth()
         .listUsers(1000,nextPageToken)
@@ -18,9 +20,9 @@ const AddFollow=()=>{
     return(
         <section>
             <div>
-
+                <button onClick={userList}/>
             </div>
         </section>
     );
 }
-export default AddFollow;
+export default SearchUsers;
