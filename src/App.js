@@ -7,12 +7,16 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
         if (user) {
-            setUserObj({
-                displayName: authService.currentUser.displayName
-                ? authService.currentUser.displayName
-                : 'Anonymous',
-                uid: authService.currentUser.uid,
-            });
+          setUserObj({
+              displayName: user.displayName
+              ? user.displayName
+              : 'Anonymous',
+              uid: user.uid,
+              updateProfile: (args) => user.updateProfile(args),
+          });
+        }
+        else {
+          setUserObj(false);
         }
         setInit(true);
       });
