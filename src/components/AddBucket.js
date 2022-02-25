@@ -3,7 +3,6 @@ import {collection,doc,updateDoc,getFirestore,getDoc} from "firebase/firestore";
 import { dbService } from "fbase";
 
 const AddBucket = ({userObject}) => {
-    
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
     const [tagArray,setTagArray]=useState([]);
@@ -23,7 +22,7 @@ const AddBucket = ({userObject}) => {
             });
         }
     }
-
+    
     const onChange = (event) => {
         event.preventDefault();
         const {

@@ -1,7 +1,6 @@
 import { getAuth } from "firebase/auth";
 
 const SearchUsers=()=>{
-    
     const userList=(nextPageToken)=>{
         getAuth()
         .listUsers(1000,nextPageToken)

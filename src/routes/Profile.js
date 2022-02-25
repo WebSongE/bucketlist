@@ -2,10 +2,14 @@ import { authService,dbService } from "fbase";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
+import { updateProfile } from "@firebase/auth";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 import ShowList from "components/showList";
+
 
 const Profile=({ refreshUser, userObj})=>{
     const [buckets, setBuckets] = useState();
+  
     useEffect(() => {
         dbService
             .collection("buckets")
@@ -20,6 +24,7 @@ const Profile=({ refreshUser, userObj})=>{
     }, []);
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState("");
+  
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
@@ -33,9 +38,9 @@ const Profile=({ refreshUser, userObj})=>{
     };
     const onSubmit = async(event) => {
         event.preventDefault();
-        if (userObj.displayName !== newDisplayName) {
-            await userObj.updateProfile ({
-                displayName: newDisplayName
+        if (userObject.displayName !== newDisplayName) {
+            await userObject.updateProfile ({
+                displayName: newDisplayName,
             });
             refreshUser();
             console.log(userObj.displayName);
