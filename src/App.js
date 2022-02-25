@@ -7,15 +7,14 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
         if (user) {
-          setInit(true);
-          setUserObj({
-              displayName: user.displayName
-              ? user.displayName
-              : 'Anonymous',
-              uid: user.uid,
-              updateProfile: (args) => user.updateProfile(args),
-          });
+            setUserObj({
+                displayName: authService.currentUser.displayName
+                ? authService.currentUser.displayName
+                : 'Anonymous',
+                uid: authService.currentUser.uid,
+            });
         }
+        setInit(true);
       });
     }, []);
     const refreshUser = () => {
@@ -35,7 +34,7 @@ function App() {
              userObj={userObj}
            />
          ) : (
-           "Initializing..."
+           <span>Initializing...</span>
          )}
     </>
   );
