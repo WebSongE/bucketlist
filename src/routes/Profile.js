@@ -43,6 +43,7 @@ const Profile=({ refreshUser, userObj})=>{
                 displayName: newDisplayName,
             });
             refreshUser();
+            console.log(userObj.displayName);
         }
     };
 

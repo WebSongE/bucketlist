@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {collection,doc,updateDoc,getFirestore,getDoc} from "firebase/firestore";
 import { dbService } from "fbase";
+
 const AddBucket = ({userObject}) => {
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
