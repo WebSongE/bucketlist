@@ -7,7 +7,6 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
         if (user) {
-          setInit(true);
           setUserObj({
               displayName: user.displayName
               ? user.displayName
@@ -16,6 +15,10 @@ function App() {
               updateProfile: (args) => user.updateProfile(args),
           });
         }
+        else {
+          setUserObj(false);
+        }
+        setInit(true);
       });
     }, []);
     const refreshUser = () => {
