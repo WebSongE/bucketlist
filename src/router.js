@@ -6,19 +6,19 @@ import Profile from 'routes/Profile.js';
 import SearchUsers from "components/SearchUsers";
 import Home from "components/Home";
 
-const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
+const AppRouter = ({ refreshUser, isLoggedIn,userObj }) => {
     return (
         <BrowserRouter>
-            {isLoggedIn && <Navigation userObject={userObject}/>}
+            {isLoggedIn && <Navigation userObj={userObj}/>}
             <Routes>
                 {isLoggedIn ? (
                     <>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/profile" element={
-                            <Profile userObject={userObject} refreshUser={{refreshUser}}/>
+                            <Profile userObj={userObj} refreshUser={{refreshUser}}/>
                         } />
                         <Route path='/bucket' element={
-                            <AddBucket userObject={userObject} />
+                            <AddBucket userObj={userObj} />
                         } />
                         <Route path='/search' element={
                             <SearchUsers />

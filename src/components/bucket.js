@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import AddBucket from "./AddBucket";
 import ShowList from "./showList";
 
-const Bucket = ({ userObject }) => {
+const Bucket = ({ userObj }) => {
     const [buckets, setBuckets] = useState([]);
     useEffect(() => {
         dbService
@@ -20,7 +20,7 @@ const Bucket = ({ userObject }) => {
     
     return (
         <div>
-            <AddBucket userObject={userObject} />
+            <AddBucket userObj={userObj} />
             <div>
                 {buckets.map((bucket) => (
                     <ShowList key={bucket.id} bucketObject={bucket}/>
