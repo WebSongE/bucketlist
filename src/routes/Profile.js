@@ -11,6 +11,7 @@ const Profile= ({ refreshUser, userObj}) => {
     
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState("");
+
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
@@ -30,6 +31,7 @@ const Profile= ({ refreshUser, userObj}) => {
                 displayName: newDisplayName
             });
             refreshUser();
+            console.log(userObj.displayName);
         }
     };
     useEffect(() => {
@@ -47,6 +49,7 @@ const Profile= ({ refreshUser, userObj}) => {
     //console.log(userObj.displayName);
 
     return (
+
         <div className="container">
             <form onSubmit={onSubmit} className="profileForm">
                 <input
@@ -61,6 +64,7 @@ const Profile= ({ refreshUser, userObj}) => {
                     value="Update Profile"
                     className="formBtn"
                      />
+
             </form>
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
@@ -72,8 +76,10 @@ const Profile= ({ refreshUser, userObj}) => {
             </div>
         </div>
     );
+
        
 }
 
-export default Profile;
 
+
+export default Profile;

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import {collection,doc,updateDoc,getFirestore,getDoc} from "firebase/firestore";
 import { dbService } from "fbase";
-const AddBucket = ({userObj}) => {
+const AddBucket = ({userObject}) => {
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
     const [tagArray,setTagArray]=useState([]);
     const [userTags,setUserTags]=useState(new Map());
 
+    const [expiredDate,setNewExpiredDate]=useState(new Date());
+
     useEffect=async()=>{
-        const ref=doc(dbService,"userAllTags",userObj.id);
+        const ref=doc(dbService,"userAllTags",userObject.id);
+
         const data=await getDoc(ref);
         if(data){
             setUserTags(data);
@@ -20,6 +23,7 @@ const AddBucket = ({userObj}) => {
             });
         }
     }
+    
     const onChange = (event) => {
         event.preventDefault();
         const {
@@ -43,8 +47,8 @@ const AddBucket = ({userObj}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         if (newBucket === "") return;
-        setTagArray(tagArray.split("#"));
-        await collection("buckets").add({
+        setTagArray(tags.split('#').join(',').split(' ').join(',').split(','));
+        await dbService.collection("buckets").add({
             text: newBucket,
             dateAt: Date.now(),
             userId: userObj.uid,
