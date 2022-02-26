@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {collection,doc,updateDoc,getFirestore,getDoc} from "firebase/firestore";
+import {collection,doc,updateDoc,getFirestore,getDoc, setDoc} from "firebase/firestore";
 import { dbService } from "fbase";
 
 const AddBucket = ({userObject}) => {
@@ -9,15 +9,16 @@ const AddBucket = ({userObject}) => {
     const [userTags,setUserTags]=useState(new Map());
     const [expiredDate,setNewExpiredDate]=useState(new Date());
 
+    const db=getFirestore();
+    const bucketRef=doc(db,"buckets");
     useEffect=async()=>{
-        const ref=doc(dbService,"userAllTags",userObject.id);
-        const data=await getDoc(ref);
-        if(data){
+        const tagRef=doc(db,"userAllTags",userObject.id);
+        const data=await getDoc(tagRef);
+        if(data.exists()){
             setUserTags(data);
         }
         else {
-            collection("userContents").add({
-                userId:userObject.id,
+            setDoc(tagRef,{
                 userAllTags:userTags,
             });
         }
@@ -54,7 +55,7 @@ const AddBucket = ({userObject}) => {
         event.preventDefault();
         if (newBucket === "") return;
         setTagArray(tags.split('#').join(',').split(' ').join(',').split(','));
-        await dbService.collection("buckets").add({
+        await setDoc(bucketRef,{
             text: newBucket,
             dateAt: Date.now(),
             expiredAt: expiredDate,
