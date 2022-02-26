@@ -5,11 +5,17 @@ import Navigation from "components/Navigation";
 import Profile from 'routes/Profile.js';
 import SearchUsers from "components/SearchUsers";
 import Home from "components/Home";
+import Explore from "components/Explore";
 
 const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
     return (
         <BrowserRouter>
-            {isLoggedIn && <Navigation userObject={userObject}/>}
+            {isLoggedIn 
+            && <div>
+                <Explore/>
+                <Navigation userObject={userObject}/>
+                </div>
+                }
             <Routes>
                 {isLoggedIn ? (
                     <>

@@ -1,8 +1,8 @@
-import { getAuth } from "firebase/auth";
+import {getAuth} from "firebase/auth";
 const SearchUsers=()=>{
     const userList=(nextPageToken)=>{
         getAuth()
-        .listUsers(1000,nextPageToken)
+        .listUsers(300,nextPageToken)
         .orderBy("expiredAt")
         .then((listUsersResult)=>{
             listUsersResult.users.forEach((userRecord)=>{
@@ -17,11 +17,9 @@ const SearchUsers=()=>{
         });
     };
     return(
-        <section>
-            <div>
-                <button onClick={userList}/>
-            </div>
-        </section>
+        <div>
+            <button onClick={userList} value="search">search</button>
+        </div>
     );
 }
 export default SearchUsers;

@@ -3,25 +3,21 @@ import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
 import { updateProfile } from "@firebase/auth";
-import { collection, getDocs, query, where } from "@firebase/firestore";
 import ShowList from "components/showList";
-
+import {query,orderBy,where,doc,getFirestore,setDoc,collection,onSnapshot, getDocs} from "firebase/firestore";
 
 const Profile=({ refreshUser, userObj})=>{
     const [buckets, setBuckets] = useState();
-  
-    useEffect(() => {
-        dbService
-            .collection("buckets")
-            .orderBy("dateAt", "desc")
-            .onSnapshot((snapshot) => {
-            const newArray = snapshot.docs.map((document) => ({
-                id: document.id,
-                ...document.data(),
-            }));
-            setBuckets(newArray);
-        });
-    }, []);
+    const db=getFirestore();
+
+    useEffect=async() => {
+        const bucketRef=doc(db,"buckets");
+        const q=query(bucketRef,orderBy("expiredAt","desc"),orderBy("dateAt"),where("userId","==",userObj.id));
+        const querySnapshot=await getDocs(q);
+        if(querySnapshot.exists()) setBuckets(querySnapshot.data());
+        else console.log("There's nothing!");
+    }
+
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState("");
   
