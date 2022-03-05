@@ -7,13 +7,14 @@ import SearchUsers from "components/SearchUsers";
 import Home from "components/Home";
 import Explore from "components/Explore";
 
-const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
+const AppRouter = ({ refreshUser, isLoggedIn,userObj }) => {
     return (
         <BrowserRouter>
+
             {isLoggedIn 
             && <div>
                 <Explore/>
-                <Navigation userObject={userObject}/>
+                <Navigation userObj={userObj}/>
                 </div>
                 }
             <Routes>
@@ -21,10 +22,10 @@ const AppRouter = ({ refreshUser, isLoggedIn,userObject }) => {
                     <>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/profile" element={
-                            <Profile userObject={userObject} refreshUser={{refreshUser}}/>
+                            <Profile userObj={userObj} refreshUser={{refreshUser}}/>
                         } />
                         <Route path='/bucket' element={
-                            <AddBucket userObject={userObject} />
+                            <AddBucket userObj={userObj} />
                         } />
                         <Route path='/search' element={
                             <SearchUsers />
