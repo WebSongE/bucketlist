@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { setDoc,getFirestore,doc } from "firebase/firestore";
 import AppRouter from "router";
 import { authService } from "fbase";
 function App() {
@@ -20,7 +21,7 @@ function App() {
         }
         setInit(true);
       });
-    }, []);
+  }, []);
     const refreshUser = () => {
       const user = authService.currentUser;
       setUserObj({
