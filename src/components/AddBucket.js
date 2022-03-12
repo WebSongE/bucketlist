@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import {collection,doc,updateDoc,getFirestore,getDoc, setDoc} from "firebase/firestore";
-import { dbService } from "fbase";
+//import { dbService } from "fbase";
 
-const AddBucket = ({userObject}) => {
+const AddBucket = ({userObj}) => {
     const [newBucket, setNewBucket] = useState("");
     const [tags, setNewTags] = useState("");
     const [tagArray,setTagArray]=useState([]);
@@ -10,18 +10,21 @@ const AddBucket = ({userObject}) => {
     const [expiredDate,setNewExpiredDate]=useState(new Date());
 
     const db=getFirestore();
-    const bucketRef=doc(db,"users/buckets");
+    const bucketRef=doc(db,"users/"+{userObj.uid}+"/buckets");
     /*useEffect=async()=>{
         const tagRef=doc(db,"userAllTags",userObject.id);
-        const data=await getDoc(tagRef);
-        if(data.exists()){
-            setUserTags(data);
-        }
-        else {
-            setDoc(tagRef,{
-                userAllTags:userTags,
-            });
-        }
+        const bucketRef=doc(db,"buckets");
+        useEffect=async()=>{
+            const tagRef=doc(db,"userAllTags",userObj.id);
+            const data=await getDoc(tagRef);
+            if(data.exists()){
+                setUserTags(data);
+            }
+            else {
+                setDoc(tagRef,{
+                    userAllTags:userTags,
+                });
+            }
     }*/
     
     const onChange = (event) => {
@@ -59,13 +62,13 @@ const AddBucket = ({userObject}) => {
             text: newBucket,
             dateAt: Date.now(),
             expiredAt: expiredDate,
-            userId: userObject.uid,
+            userId: userObj.uid,
             tags: tagArray
         });
         tagArray.forEach((item)=>{
             if(userTags.has(item)===false) userTags.set(item,true);
         });
-        updateDoc(doc(getFirestore(),"userContents",userObject.id),{userAllTags:userTags});
+        updateDoc(doc(getFirestore(),"userContents",userObj.id),{userAllTags:userTags});
         if(collection("userContents"))
         allInit();
     };
