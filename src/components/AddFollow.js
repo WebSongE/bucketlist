@@ -1,4 +1,4 @@
-import {getAuth} from "firebase/auth";
+import getAuth from "firebase/auth";
 const AddFollow=()=>{
     const userList=(nextPageToken)=>{
         getAuth()

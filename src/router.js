@@ -22,7 +22,7 @@ const AppRouter = ({ refreshUser, isLoggedIn,userObj }) => {
                     <>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/profile" element={
-                            <Profile userObj={userObj} refreshUser={{refreshUser}}/>
+                            <Profile userObj={userObj} />
                         } />
                         <Route path='/bucket' element={
                             <AddBucket userObj={userObj} />

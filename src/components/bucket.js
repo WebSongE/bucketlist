@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import  dbService from "fbase";
 import { useState,useEffect } from "react";
 import AddBucket from "./AddBucket";
 import ShowList from "./showList";
