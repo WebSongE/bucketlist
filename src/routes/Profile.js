@@ -6,8 +6,8 @@ import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
-const Profile=({ refreshUser, userObj})=>{
-    const [buckets, setBuckets] = useState();
+const Profile=({ userObj})=>{
+    const [buckets, setBuckets] = useState([]);
 
     const navigate = useNavigate();
     const [newDisplayName, setNewDisplayName] = useState("");
@@ -26,18 +26,15 @@ const Profile=({ refreshUser, userObj})=>{
     
     const onSubmit = async(event) => {
         event.preventDefault();
-
-        if (userObj.displayName !== newDisplayName) {
-            await userObj.updateProfile ({
-                displayName: newDisplayName,
-
-            });
-            refreshUser();
-            console.log(userObj.displayName);
+        
+        if (userObj.displayName !== newDisplayName && newDisplayName.length !==0) {
+            await updateProfile (userObj, { displayName: newDisplayName});
+            window.location.reload();
+            //console.log(userObj.displayName);
         }
     };
     useEffect(() => {
-        const q = query(collection(dbService, "buckets"), orderBy("createdAt", "desc"));
+        const q = query(collection(dbService, "buckets"), orderBy("expiredDate", "desc"));
         onSnapshot(q, (snapshot) => {
           const newArray = snapshot.docs.map((document) => ({
             id: document.id,
