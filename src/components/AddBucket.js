@@ -10,7 +10,7 @@ const AddBucket = ({userObject}) => {
     const [expiredDate,setNewExpiredDate]=useState(new Date());
 
     const db=getFirestore();
-    const bucketRef=doc(db,"users/buckets");
+    const bucketRef=doc(db,"users/"+userObject.uid+"/buckets");
     /*useEffect=async()=>{
         const tagRef=doc(db,"userAllTags",userObject.id);
         const data=await getDoc(tagRef);

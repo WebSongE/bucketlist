@@ -8,17 +8,21 @@ const Explore=()=>{
 
     useEffect(()=>{
         const getData=async()=>{
-            const userTempArray=await getDocs(userRef);
-            console.log(userTempArray);
+            const data=await getDocs(userRef);
+            const userTempArray=data.docs.map(doc=>({
+                ...doc.data().userId,
+                id:doc.id
+            }));
             setUserArray(userTempArray);
+            console.log(userArray);
         }
         getData();
-    });
+    },[]);
     
     return(
         <div>
             {userArray.map((user)=>(
-                <div>
+                <div key={user.id}>
                     <span>{user.userId}</span>
                 </div>
             ))}
