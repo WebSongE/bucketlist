@@ -7,18 +7,8 @@ import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
 
-const Profile=({ refreshUser, userObj})=>{
-    const [buckets, setBuckets] = useState();
-    const db=getFirestore();
+const Profile=({ userObj })=>{
 
-    /*useEffect=async() => {
-        const bucketRef=doc(db,"buckets");
-        const q=query(bucketRef,orderBy("expiredAt","desc"),orderBy("dateAt"),where("userId","==",userObj.id));
-        const querySnapshot=await getDocs(q);
-        if(querySnapshot.exists()) setBuckets(querySnapshot.data());
-        else console.log("There's nothing!");
-    }*/
-const Profile=({ userObj})=>{
     const [buckets, setBuckets] = useState([]);
 
     const navigate = useNavigate();
@@ -57,6 +47,26 @@ const Profile=({ userObj})=>{
       }, [dbService]);
     //console.log(userObj.displayName);
 
+    const [isChecked, setIsChecked] = useState(false);
+    const[checkedbuckets, setCheckedbuckets] = useState(new Set());
+
+    const checkHandler = ({ target }) => {
+        setIsChecked(!isChecked);
+        checkedbucketHandler(target.parentNode, target.value, target.checked);
+    };
+
+    const checkedbucketHandler = ( id, isChecked) => {
+        if(isChecked) {
+            checkedbuckets.add(id);
+            setCheckedbuckets(checkedbuckets);
+        }
+        else if (!isChecked && checkedbuckets.has(id)) {
+            checkedbuckets.delete(id);
+            setCheckedbuckets(checkedbuckets);
+        }
+        return checkedbuckets;
+    };
+
     return (
 
         <div className="container">
@@ -80,7 +90,13 @@ const Profile=({ userObj})=>{
             </span>
             <div>
                 {buckets && buckets.map((bucket) => (
-                    <ShowList key={bucket.id} bucketObject={bucket} />
+                    <><ShowList key={bucket.id} bucketObject={bucket} /><label key={buckets.id} className="innerBox">
+                        <input
+                            type="checkbox"
+                            value={buckets.name}
+                            onChange={(e) => checkHandler(e)} />
+                        <div>{buckets.name}</div>
+                    </label></>
                 ))}
             </div>
         </div>
