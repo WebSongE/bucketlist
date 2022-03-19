@@ -1,4 +1,4 @@
-import {getFirestore,collection,getDocs} from "firebase/firestore";
+import {getFirestore,collection,query,where,querySnapshot, onSnapshot} from "firebase/firestore";
 import {getAuth,getUser} from "firebase/auth";
 import {useEffect,useState} from "react";
 const Explore=()=>{
@@ -6,18 +6,18 @@ const Explore=()=>{
     const db=getFirestore();
     const userRef=collection(db,'users');
 
-    useEffect(()=>{
-        const getData=async()=>{
-            const data=await getDocs(userRef);
-            const userTempArray=data.docs.map(doc=>({
-                ...doc.data().userId,
-                id:doc.id
-            }));
-            setUserArray(userTempArray);
-            console.log(userArray);
-        }
-        getData();
-    },[]);
+    const fetchData=()=>{
+        const q=query(userRef,where("userId","!=",undefined));
+        onSnapshot(q,(querySnapshot)=>{
+          const userTempArray=[];
+          querySnapshot.forEach((doc)=>{
+                userTempArray.push(doc.data().userId);
+          });
+          setUserArray(userTempArray);
+          console.log(userArray);
+        })
+    }
+    
     
     return(
         <div>
