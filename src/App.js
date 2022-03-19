@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { setDoc,getFirestore,doc } from "firebase/firestore";
 import AppRouter from "router";
 import { authService } from "fbase";
 import { onAuthStateChanged } from  "firebase/auth";
@@ -16,6 +17,15 @@ function App() {
         }
         setInit(true);
       });
+  }, []);
+    const refreshUser = () => {
+      const user = authService.currentUser;
+      setUserObj({
+        displayName: user.displayName,
+        uid: user.uid,
+        updateProfile: (args) => user.updateProfile(args),
+      });
+    };
     }, [auth]);
     
     return (

@@ -6,6 +6,18 @@ import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
+
+const Profile=({ refreshUser, userObj})=>{
+    const [buckets, setBuckets] = useState();
+    const db=getFirestore();
+
+    /*useEffect=async() => {
+        const bucketRef=doc(db,"buckets");
+        const q=query(bucketRef,orderBy("expiredAt","desc"),orderBy("dateAt"),where("userId","==",userObj.id));
+        const querySnapshot=await getDocs(q);
+        if(querySnapshot.exists()) setBuckets(querySnapshot.data());
+        else console.log("There's nothing!");
+    }*/
 const Profile=({ userObj})=>{
     const [buckets, setBuckets] = useState([]);
 

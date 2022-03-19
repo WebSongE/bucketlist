@@ -7,6 +7,7 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -36,7 +37,12 @@ const Auth = () => {
                     auth, email, password);
 
             }
-            console.log(data)
+            const user = getAuth().currentUser;
+            console.log(user.uid);
+            const res=getFirestore()
+                .collection('users')
+                .add({userId:user.uid});
+            console.log(res.userId);
         } catch (error) {
             setError(error.message);
         }

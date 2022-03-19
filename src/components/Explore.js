@@ -1,25 +1,29 @@
-import {getAuth} from "firebase/auth";
-const SearchUsers=()=>{
-    const userList=(nextPageToken)=>{
-        getAuth()
-        .listUsers(300,nextPageToken)
-        .orderBy("expiredAt")
-        .then((listUsersResult)=>{
-            listUsersResult.users.forEach((userRecord)=>{
-                console.log('user',userRecord.toJSON());
-            });
-            if(listUsersResult.PageToken){
-                userList(listUsersResult.pageToken);
-            }
-        })
-        .catch((error)=>{
-            console.log('Error listing users:',error);
-        });
-    };
+import {getFirestore,collection,getDocs} from "firebase/firestore";
+import {getAuth,getUser} from "firebase/auth";
+import {useEffect,useState} from "react";
+const Explore=()=>{
+    const [userArray,setUserArray]=useState([]);
+    const db=getFirestore();
+    const userRef=collection(db,'users');
+
+    useEffect(()=>{
+        const getData=async()=>{
+            const userTempArray=await getDocs(userRef);
+            console.log(userTempArray);
+            setUserArray(userTempArray);
+        }
+        getData();
+    });
+    
     return(
         <div>
-            <button onClick={userList} value="search">search</button>
+            {userArray.map((user)=>(
+                <div>
+                    <span>{user.userId}</span>
+                </div>
+            ))}
+
         </div>
     );
 }
-export default SearchUsers;
+export default Explore;
