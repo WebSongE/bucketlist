@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 const Navigation = ({ userObj }) => {
     return(
     <nav>
+        <div>
+            <Link to="/explore">explore</Link>
+        </div>
         <ul>
             <li>
                 <Link to="/">Home</Link>

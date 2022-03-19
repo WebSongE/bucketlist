@@ -6,7 +6,9 @@ import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
+
 const Profile=({ userObj })=>{
+
     const [buckets, setBuckets] = useState([]);
 
     const navigate = useNavigate();

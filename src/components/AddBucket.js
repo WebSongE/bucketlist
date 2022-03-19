@@ -10,19 +10,22 @@ const AddBucket = ({userObj}) => {
     const [expiredDate,setNewExpiredDate]=useState(new Date());
 
     const db=getFirestore();
-    const bucketRef=doc(db,"buckets");
-    useEffect=async()=>{
-        const tagRef=doc(db,"userAllTags",userObj.id);
-        const data=await getDoc(tagRef);
-        if(data.exists()){
-            setUserTags(data);
-        }
-        else {
-            setDoc(tagRef,{
-                userAllTags:userTags,
-            });
-        }
-    }
+    const bucketRef=doc(db,"users/"+{userObj.uid}+"/buckets");
+    /*useEffect=async()=>{
+        const tagRef=doc(db,"userAllTags",userObject.id);
+        const bucketRef=doc(db,"buckets");
+        useEffect=async()=>{
+            const tagRef=doc(db,"userAllTags",userObj.id);
+            const data=await getDoc(tagRef);
+            if(data.exists()){
+                setUserTags(data);
+            }
+            else {
+                setDoc(tagRef,{
+                    userAllTags:userTags,
+                });
+            }
+    }*/
     
     const onChange = (event) => {
         event.preventDefault();
