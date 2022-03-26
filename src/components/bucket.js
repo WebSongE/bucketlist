@@ -16,7 +16,7 @@ const Bucket = ({ userObj }) => {
           }));
           setBuckets(newArray);
         });
-      }, [dbService]);
+      }, []);
     
     return (
         <div>

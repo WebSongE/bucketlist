@@ -12,7 +12,6 @@ const AppRouter = ({ refreshUser, isLoggedIn,userObj }) => {
 
             {isLoggedIn 
             && <div>
-                <Explore/>
                 <Navigation userObj={userObj}/>
                 </div>
                 }
