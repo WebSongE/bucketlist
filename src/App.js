@@ -25,7 +25,6 @@ function App() {
         updateProfile: (args) => user.updateProfile(args),
       });
     };
-    }, [auth]);
     
     return (
       <>
