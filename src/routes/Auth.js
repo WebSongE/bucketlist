@@ -26,14 +26,13 @@ const Auth = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            let data;
             const auth = getAuth()
             if (newAccount) {
-                data = await createUserWithEmailAndPassword(
+                await createUserWithEmailAndPassword(
                     auth, email, password
                 );
             } else {
-                data = await signInWithEmailAndPassword(
+                await signInWithEmailAndPassword(
                     auth, email, password);
 
             }
@@ -41,6 +40,7 @@ const Auth = () => {
             console.log(user.uid);
             const userRef=doc(getFirestore(),'users',user.uid);
             setDoc(userRef,{
+                user_name:user.displayName,
                 userId:user.uid,
                 following:[],
                 follower:[],
@@ -63,14 +63,16 @@ const Auth = () => {
         try {
             if (name === "google") {
                 provider = new GoogleAuthProvider();
-                const result = await signInWithPopup(auth, provider);
+                await signInWithPopup(auth, provider);
+                /*const result = await signInWithPopup(auth, provider);
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                const token = credential.accessToken;*/
             } else if (name === "github") {
                 provider = new GithubAuthProvider();
-                const result = await signInWithPopup(auth, provider);
+                await signInWithPopup(auth, provider);
+                /*const result = await signInWithPopup(auth, provider);
                 const credential = GithubAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                const token = credential.accessToken;*/
             }
 
         } catch (error) {
