@@ -1,15 +1,16 @@
-import { dbService} from "fbase";
 import { useState } from "react";
-import {deleteDoc, doc,updateDoc} from "firebase/firestore";
+import {deleteDoc,collection,getFirestore,updateDoc} from "firebase/firestore";
 
-const ShowList=({ bucketObject }) => {
+const ShowList=({ bucketObject},{userObj}) => {
     const [edit, setEdit] = useState(false);
     const [newBucket, setNewBucket] = useState(bucketObject.text);
     const [expiredDate,setNewExpiredDate]=useState(new Date());
+    const db=getFirestore();
+    const bucketRef=collection(db,"users/"+userObj.uid+"/buckets");
     const onClickDelete = async (event) => {
         const confirm = window.confirm("정말로 삭제하시겠습니까?");
         if (confirm) {
-           await deleteDoc(doc(dbService,'buckets',bucketObject.id));
+           await deleteDoc(bucketRef);
         }
     };
     const onChange = (event) => {
@@ -28,7 +29,7 @@ const ShowList=({ bucketObject }) => {
     const isEditing = () => setEdit((prev) => !prev);
     const onSubmit = async (event) => {
         event.preventDefault();
-        await updateDoc(doc(dbService,'buckets',bucketObject.id),{ text: newBucket });
+        await updateDoc(bucketRef,{ text: newBucket });
         setEdit(false);
     };
     
@@ -44,7 +45,7 @@ const ShowList=({ bucketObject }) => {
                     <button type="button" onClick={isEditing}>���</button>
                 </div>
             ) : (
-                <div>
+                <div >
                     <h3>{bucketObject.text}</h3>
                     <div>
                         <span onClick={onClickDelete}>X</span>

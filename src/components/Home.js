@@ -1,25 +1,24 @@
 import React from "react";
-import { dbService } from "fbase";
-import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
-import { useState,useEffect } from "react";
-
+import { orderBy, query, onSnapshot,getFirestore,collection } from "firebase/firestore";
+import { useState} from "react";
 import ShowList from "./showList";
 
 
 const Home = ({userObj}) => {
     const [buckets, setBuckets] = useState([]);
-    useEffect(() => {
-        const q = query(collection(dbService, "buckets"), orderBy("createdAt", "desc"));
-        onSnapshot(q, (snapshot) => {
-          const newArray = snapshot.docs.map((document) => ({
-            id: document.id,
-            ...document.data(),
-          }));
-          setBuckets(newArray);
+    
+    const db=getFirestore();
+    const bucketsRef=collection(db,"users/"+userObj.uid+"/buckets");
+    const q = query(bucketsRef, orderBy('dateAt','desc'));
+    const unsubscribe=onSnapshot(q, (snapshot) => {
+        const newArray=[];
+        snapshot.forEach((doc)=>{
+            newArray.push(doc.data());
         });
-      }, [dbService]);
+        setBuckets(newArray);
+    });
  
-
+    unsubscribe();   
     return (
         <div>
             <form>

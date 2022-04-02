@@ -1,14 +1,14 @@
 import  dbService from "fbase";
 import { useState,useEffect } from "react";
-import AddBucket from "./AddBucket";
-import ShowList from "./showList";
+import AddBucket from "components/AddBucket";
+import ShowList from "components/showList";
 import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 
 
 const Bucket = ({ userObj }) => {
     const [buckets, setBuckets] = useState([]);
     useEffect(() => {
-        const q = query(collection(dbService, "buckets"), orderBy("createdAt", "desc"));
+        const q = query(collection(dbService, "buckets"), orderBy("dateAt", "desc"));
         onSnapshot(q, (snapshot) => {
           const newArray = snapshot.docs.map((document) => ({
             id: document.id,

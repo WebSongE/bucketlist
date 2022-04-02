@@ -11,10 +11,10 @@ const AddBucket = ({userObj}) => {
 
     const db=getFirestore();
     const bucketRef=collection(db,"users/"+userObj.uid+"/buckets");
-
+    
     useEffect(()=>{
         const getTags=async()=>{
-            const tagRef=addDoc(db,"userAllTags",userObj.id);
+            const tagRef=addDoc(getFirestore(),"userAllTags");
             const data=await getDoc(tagRef);
             if(data.exists()){
                 setUserTags(data);
@@ -26,7 +26,8 @@ const AddBucket = ({userObj}) => {
             }
         }
         getTags();
-    },[]);
+        return 
+    },[tagArray]);
     
     const onChange = (event) => {
         event.preventDefault();

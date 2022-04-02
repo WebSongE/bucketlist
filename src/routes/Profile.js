@@ -2,7 +2,7 @@ import { authService,dbService } from "fbase";
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
-import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { collection, orderBy, query, onSnapshot,getFirestore,doc,updateDoc } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
@@ -19,7 +19,7 @@ const Profile=({ userObj })=>{
         navigate("/");
     };
     
-    const onChange = (event) => {
+    const onChange = async(event) => {
         const {
             target: {value},
         } = event;
@@ -31,8 +31,12 @@ const Profile=({ userObj })=>{
         
         if (userObj.displayName !== newDisplayName && newDisplayName.length !==0) {
             await updateProfile (userObj, { displayName: newDisplayName});
-            window.location.reload();
             //console.log(userObj.displayName);
+            const userRef=doc(getFirestore(),'users',userObj.uid);
+            updateDoc(userRef, {
+                user_name: newDisplayName
+            });
+            window.location.reload();
         }
     };
     useEffect(() => {
