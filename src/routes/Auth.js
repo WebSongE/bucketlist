@@ -37,7 +37,6 @@ const Auth = () => {
 
             }
             const user = getAuth().currentUser;
-            console.log(user.uid);
             const userRef=doc(getFirestore(),'users',user.uid);
             setDoc(userRef,{
                 user_name:user.displayName,
@@ -46,7 +45,6 @@ const Auth = () => {
                 follower:[],
                 userAllTags:[],
             },{merge:true});
-            console.log(userRef.userId);
         } catch (error) {
             setError(error.message);
         }

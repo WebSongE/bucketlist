@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {collection,doc,updateDoc,getFirestore,getDoc, setDoc, addDoc} from "firebase/firestore";
+import {collection,updateDoc,getFirestore,getDoc, setDoc, addDoc} from "firebase/firestore";
 import { dbService } from "fbase";
 
 const AddBucket = ({userObj}) => {
@@ -29,7 +29,7 @@ const AddBucket = ({userObj}) => {
         }
         getTags();
         return 
-    },[tagArray]);
+    },[]);
     
     const onChange = (event) => {
         event.preventDefault();
