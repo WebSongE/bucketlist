@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {collection,doc,updateDoc,getFirestore,getDoc, setDoc, addDoc} from "firebase/firestore";
-//import { dbService } from "fbase";
+import { dbService } from "fbase";
 
 const AddBucket = ({userObj}) => {
     const [newBucket, setNewBucket] = useState("");
@@ -14,8 +14,10 @@ const AddBucket = ({userObj}) => {
     
     useEffect(()=>{
         const getTags=async()=>{
+
             const tagRef=addDoc(getFirestore(),"userAllTags");
             const data=await getDoc(tagRef);
+
             if(data.exists()){
                 setUserTags(data);
             }
@@ -70,7 +72,7 @@ const AddBucket = ({userObj}) => {
         tagArray.forEach((item)=>{
             if(userTags.has(item)===false) userTags.set(item,true);
         });
-        updateDoc(doc(getFirestore(),"userContents",userObj.id),{userAllTags:userTags});
+        updateDoc(addDoc(dbService,"userContents",userObj.id),{userAllTags:userTags});
         if(collection("userContents"))
         allInit();
     };
