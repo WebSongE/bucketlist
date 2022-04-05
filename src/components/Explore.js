@@ -12,14 +12,18 @@ const Explore=()=>{
             userTempArray.push(doc.data());
         });
         setUserArray(userTempArray);
-        console.log(userArray);
     });
     
     return(
         <div>
             {userArray.map((user)=>(
                 <div key={user.userId}>
-                    <span>{user.userId}</span>
+                    {(user.user_name==null)?(
+                        <span>익명</span>
+                    ):(
+                        <span>{user.user_name}</span>
+                    )
+                    }
                 </div>
             ))}
         </div>
