@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {collection,doc,updateDoc,getFirestore,getDoc, setDoc, addDoc} from "firebase/firestore";
+import {collection,updateDoc,getFirestore,getDoc, setDoc, addDoc,doc} from "firebase/firestore";
 import { dbService } from "fbase";
 
 const AddBucket = ({userObj}) => {
@@ -14,23 +14,18 @@ const AddBucket = ({userObj}) => {
     
     useEffect(()=>{
         const getTags=async()=>{
-
-            const tagRef=addDoc(getFirestore(),"userAllTags");
-            const data=await getDoc(tagRef);
-
-            if(data.exists()){
-                setUserTags(data);
-            }
-            else {
-                setDoc(tagRef,{
-                    userAllTags:userTags,
-                });
-            }
+            const tagRef=doc(getFirestore(),"users/"+userObj.uid);
+            const temp=await getDoc(tagRef);
+            setTagArray(temp.data().userAllTags);
         }
         getTags();
-        return 
-    },[tagArray]);
-    
+    },[]);
+    const getTags=async()=>{
+        const tagRef=doc(getFirestore(),"users/"+userObj.uid);
+        const temp=await getDoc(tagRef);
+        setTagArray(temp.data().userAllTags);
+    }
+
     const onChange = (event) => {
         event.preventDefault();
         const {
@@ -55,7 +50,7 @@ const AddBucket = ({userObj}) => {
     const allInit=()=>{
         setNewBucket("");
         setNewTags("");
-        setTagArray([]);
+        getTags();
         setUserTags(new Map());
     }
     const onSubmit = async (event) => {
@@ -72,7 +67,7 @@ const AddBucket = ({userObj}) => {
         tagArray.forEach((item)=>{
             if(userTags.has(item)===false) userTags.set(item,true);
         });
-        updateDoc(addDoc(dbService,"userContents",userObj.id),{userAllTags:userTags});
+        updateDoc(addDoc(bucketRef,"userContents",userObj.id),{userAllTags:userTags});
         if(collection("userContents"))
         allInit();
     };
