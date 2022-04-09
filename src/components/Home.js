@@ -36,7 +36,7 @@ const Home = ({userObj}) => {
             <div>
                 {buckets.map((bucket) => (
                     <div key={bucket.id}>
-                        <span>{bucket.text}</span>
+                        <div>{bucket.text}</div>
                     </div>
                 ))}
             </div>
