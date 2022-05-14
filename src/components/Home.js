@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { orderBy, query, getDocs,getFirestore,collection } from "firebase/firestore";
+import { orderBy, query, getDocs,getFirestore,collection,toDate } from "firebase/firestore";
 import { useState} from "react";
 
 
@@ -13,11 +13,13 @@ const Home = ({userObj}) => {
         const temp=await getDocs(bucketsRef);
         const tempBuckets=[];
         temp.forEach((doc)=>{
+            var created=new Date(doc.data().dateAt);
+            created=created.getFullYear()+'-'+created.getMonth()+'-'+created.getDate();
             tempBuckets.push(
                 {
                     'id':doc.id,
                     'text':doc.data().text,
-                    'dateAt':doc.data().dateAt,
+                    'dateAt':created,
                     'expiredAt':doc.data().expiredAt,
                     'tags':doc.data().tags,
                     'userId':doc.data().userId,
@@ -37,6 +39,9 @@ const Home = ({userObj}) => {
                 {buckets.map((bucket) => (
                     <div key={bucket.id}>
                         <div>{bucket.text}</div>
+                        <div>{bucket.tags}</div>
+                        <div>created {bucket.dateAt}</div>
+                        <div>expired {bucket.expiredAt}</div>
                     </div>
                 ))}
             </div>
