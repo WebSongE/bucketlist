@@ -23,6 +23,7 @@ const AddBucket = ({userObj}) => {
     const getTags=async()=>{
         const tagRef=doc(getFirestore(),"users/"+userObj.uid);
         const temp=await getDoc(tagRef);
+        console.log("getTags");
         setTagArray(temp.data().userAllTags);
     }
 
@@ -48,6 +49,7 @@ const AddBucket = ({userObj}) => {
         setNewTags(value);
     }
     const allInit=()=>{
+        console.log("all init");
         setNewBucket("");
         setNewTags("");
         getTags();
@@ -55,8 +57,10 @@ const AddBucket = ({userObj}) => {
     }
     const onSubmit = async (event) => {
         event.preventDefault();
+        console.log("onSubmit");
         if (newBucket === "") return;
         setTagArray(tags.split('#').join(',').split(' ').join(',').split(','));
+        console.log(tagArray);
         await addDoc(bucketRef,{
             text: newBucket,
             dateAt: Date.now(),
@@ -67,8 +71,7 @@ const AddBucket = ({userObj}) => {
         tagArray.forEach((item)=>{
             if(userTags.has(item)===false) userTags.set(item,true);
         });
-        updateDoc(addDoc(bucketRef,"userContents",userObj.id),{userAllTags:userTags});
-        if(collection("userContents"))
+        console.log("successed");
         allInit();
     };
     return (

@@ -42,7 +42,7 @@ const ShowList=({ bucketObject},{userObj}) => {
                         <input onChange={onChangeDate} value={expiredDate} type="date" placeholder="마감 기한"/>
                         <input type="submit" value="업데이트" />
                     </form>
-                    <button type="button" onClick={isEditing}>���</button>
+                    <button type="button" onClick={isEditing}>수정</button>
                 </div>
             ) : (
                 <div >
