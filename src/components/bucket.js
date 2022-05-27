@@ -38,7 +38,10 @@ const Bucket = ({ userObj }) => {
             <AddBucket userObj={userObj} />
             <div>
                 {buckets.map((bucket) => (
-                    <ShowList key={bucket.id} bucketObject={bucket}/>
+                    <div key={bucket.id}>
+                        <div>{bucket.text}</div>
+                        
+                    </div>
                 ))}
             </div>
         </div>

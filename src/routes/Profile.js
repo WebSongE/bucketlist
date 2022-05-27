@@ -1,8 +1,7 @@
 import { authService,dbService } from "fbase";
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
-import { collection, orderBy, query, onSnapshot,getFirestore,doc,updateDoc } from "firebase/firestore";
+import { collection, orderBy, query, getDocs, getFirestore,doc,updateDoc, toDate } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
 
@@ -39,16 +38,28 @@ const Profile=({ userObj })=>{
             window.location.reload();
         }
     };
-    useEffect(() => {
-        const q = query(collection(dbService, "buckets"), orderBy("expiredDate", "desc"));
-        onSnapshot(q, (snapshot) => {
-          const newArray = snapshot.docs.map((document) => ({
-            id: document.id,
-            ...document.data(),
-          }));
-          setBuckets(newArray);
+    useEffect(async()=>{
+        const bucketsRef=collection(getFirestore(),"users/"+userObj.uid+"/buckets");
+        //const q = query(bucketsRef, orderBy('dateAt','desc'));
+        const temp=await getDocs(bucketsRef);
+        const tempBuckets=[];
+        temp.forEach((doc)=>{
+            var created=new Date(doc.data().dateAt);
+            created=created.getFullYear()+'-'+created.getMonth()+'-'+created.getDate();
+            tempBuckets.push(
+                {
+                    'id':doc.id,
+                    'text':doc.data().text,
+                    'dateAt':created,
+                    'expiredAt':doc.data().expiredAt,
+                    'tags':doc.data().tags,
+                    'userId':doc.data().userId,
+                }
+            );
         });
-      }, [dbService]);
+        
+        setBuckets(tempBuckets);
+    },[]);
     //console.log(userObj.displayName);
 
     const [isChecked, setIsChecked] = useState(false);
@@ -92,22 +103,30 @@ const Profile=({ userObj })=>{
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
             </span>
+            
             <div>
-                {buckets && buckets.map((bucket) => (
-                    <><ShowList key={bucket.id} bucketObject={bucket} /><label key={buckets.id} className="innerBox">
-                        <input
-                            type="checkbox"
-                            value={buckets.name}
-                            onChange={(e) => checkHandler(e)} />
-                        <div>{buckets.name}</div>
-                    </label></>
+                {buckets.map((bucket) => (
+                    <div key={bucket.id}>
+                        <div>{bucket.text}</div>
+                        <div>{bucket.tags}</div>
+                        <div>created {bucket.dateAt}</div>
+                        <div>expired {bucket.expiredAt}</div>
+                        <div>completed
+                            <label className="innerBox">
+                                <input
+                                    type="checkbox"
+                                    value={buckets.text}
+                                    onChange={(e) => checkHandler(e)} />
+                            </label>
+                        </div>
+                    </div>
                 ))}
             </div>
         </div>
     );
 
        
-}
+};
 
 
 

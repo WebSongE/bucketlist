@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import {collection,updateDoc,getFirestore,getDoc, setDoc, addDoc,doc} from "firebase/firestore";
+import React , { useEffect, useState } from "react";
+import {collection, orderBy, query, updateDoc,getFirestore,getDocs, getDoc, setDoc, addDoc,doc} from "firebase/firestore";
 import { dbService } from "fbase";
 
 const AddBucket = ({userObj}) => {
@@ -8,6 +8,7 @@ const AddBucket = ({userObj}) => {
     const [tagArray,setTagArray]=useState([]);
     const [userTags,setUserTags]=useState(new Map());
     const [expiredDate,setNewExpiredDate]=useState(new Date());
+    const [buckets, setBuckets] = useState([]);
 
     const db=getFirestore();
     const bucketRef=collection(db,"users/"+userObj.uid+"/buckets");
@@ -73,19 +74,54 @@ const AddBucket = ({userObj}) => {
         });
         console.log("successed");
         allInit();
+        window.location.reload();
+        
     };
+    useEffect(async()=>{
+        const bucketsRef=collection(getFirestore(),"users/"+userObj.uid+"/buckets");
+        //const q = query(bucketsRef, orderBy('dateAt','desc'));
+        const temp=await getDocs(bucketsRef);
+        const tempBuckets=[];
+        temp.forEach((doc)=>{
+            var created=new Date(doc.data().dateAt);
+            created=created.getFullYear()+'-'+created.getMonth()+'-'+created.getDate();
+            tempBuckets.push(
+                {
+                    'id':doc.id,
+                    'text':doc.data().text,
+                    'dateAt':created,
+                    'expiredAt':doc.data().expiredAt,
+                    'tags':doc.data().tags,
+                    'userId':doc.data().userId,
+                }
+            );
+        });
+        
+        setBuckets(tempBuckets);
+    },[]);
+
     return (
-        <section>
+        <><section>
             <div className="AddBucket">
                 <form onSubmit={onSubmit}>
                     <input value={newBucket} type="text" onChange={onChange} placeholder="이루고싶은 일을 적어보세요!" />
-                    <input value={expiredDate} type="date" onChange={onChangeDate} placeholder="마감 기한"/>
+                    <input value={expiredDate} type="date" onChange={onChangeDate} placeholder="마감 기한" />
                     <input type="submit" />
-                    <input value={tags} type="text" onChange={onChangeTags} placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다"/>
+                    <input value={tags} type="text" onChange={onChangeTags} placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다" />
                 </form>
                 <button type="button">Cancel</button>
             </div>
-        </section>
+        </section><section>
+                {buckets.map((bucket) => (
+                    <div key={bucket.id}>
+                        <div>{bucket.text}</div>
+                        <div>{bucket.tags}</div>
+                        <div>created {bucket.dateAt}</div>
+                        <div>expired {bucket.expiredAt}</div>
+                        
+                    </div>
+                ))}
+            </section></>
     );
 };
 

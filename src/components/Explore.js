@@ -1,5 +1,5 @@
 import {getFirestore,collection,query,where, onSnapshot} from "firebase/firestore";
-import {useState} from "react";
+import {useState } from "react";
 const Explore=()=>{
     const [userArray,setUserArray]=useState([]);
     
@@ -13,6 +13,7 @@ const Explore=()=>{
         });
         setUserArray(userTempArray);
     });
+  
     
     return(
         <div>

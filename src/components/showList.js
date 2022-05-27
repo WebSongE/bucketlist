@@ -11,6 +11,7 @@ const ShowList=({ bucketObject},{userObj}) => {
         const confirm = window.confirm("정말로 삭제하시겠습니까?");
         if (confirm) {
            await deleteDoc(bucketRef);
+
         }
     };
     const onChange = (event) => {
@@ -30,6 +31,7 @@ const ShowList=({ bucketObject},{userObj}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         await updateDoc(bucketRef,{ text: newBucket });
+
         setEdit(false);
     };
     
@@ -51,8 +53,10 @@ const ShowList=({ bucketObject},{userObj}) => {
                         <span onClick={onClickDelete}>X</span>
                         <span onClick={isEditing}>O</span>
                     </div>
+                    <div><button type="checkbox" onClick="Complete"></button> </div>
                 </div>
             )}
+            
         </section>
     );
 }

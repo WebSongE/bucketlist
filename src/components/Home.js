@@ -42,6 +42,7 @@ const Home = ({userObj}) => {
                         <div>{bucket.tags}</div>
                         <div>created {bucket.dateAt}</div>
                         <div>expired {bucket.expiredAt}</div>
+                        
                     </div>
                 ))}
             </div>
