@@ -74,6 +74,7 @@ const AddBucket = ({userObj}) => {
         });
         console.log("successed");
         allInit();
+        window.location.reload();
         
     };
     useEffect(async()=>{
@@ -98,7 +99,7 @@ const AddBucket = ({userObj}) => {
         
         setBuckets(tempBuckets);
     },[]);
-    
+
     return (
         <><section>
             <div className="AddBucket">
