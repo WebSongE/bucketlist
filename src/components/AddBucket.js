@@ -1,6 +1,7 @@
 import React , { useEffect, useState } from "react";
 import {collection, orderBy, query, updateDoc,getFirestore,getDocs, getDoc, setDoc, addDoc,doc} from "firebase/firestore";
 import { dbService } from "fbase";
+import ShowBucket from "./ShowBucket";
 
 const AddBucket = ({userObj}) => {
     const [newBucket, setNewBucket] = useState("");
@@ -77,29 +78,7 @@ const AddBucket = ({userObj}) => {
         window.location.reload();
         
     };
-    useEffect(async()=>{
-        const bucketsRef=collection(getFirestore(),"users/"+userObj.uid+"/buckets");
-        //const q = query(bucketsRef, orderBy('dateAt','desc'));
-        const temp=await getDocs(bucketsRef);
-        const tempBuckets=[];
-        temp.forEach((doc)=>{
-            var created=new Date(doc.data().dateAt);
-            created=created.getFullYear()+'-'+created.getMonth()+'-'+created.getDate();
-            tempBuckets.push(
-                {
-                    'id':doc.id,
-                    'text':doc.data().text,
-                    'dateAt':created,
-                    'expiredAt':doc.data().expiredAt,
-                    'tags':doc.data().tags,
-                    'userId':doc.data().userId,
-                }
-            );
-        });
-        
-        setBuckets(tempBuckets);
-    },[]);
-
+    
     return (
         <><section>
             <div className="AddBucket">
@@ -112,15 +91,8 @@ const AddBucket = ({userObj}) => {
                 <button type="button">Cancel</button>
             </div>
         </section><section>
-                {buckets.map((bucket) => (
-                    <div key={bucket.id}>
-                        <div>{bucket.text}</div>
-                        <div>{bucket.tags}</div>
-                        <div>created {bucket.dateAt}</div>
-                        <div>expired {bucket.expiredAt}</div>
-                        
-                    </div>
-                ))}
+            <ShowBucket userObj={userObj}
+            />
             </section></>
     );
 };
