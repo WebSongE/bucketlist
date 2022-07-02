@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {deleteDoc,collection,getFirestore,updateDoc} from "firebase/firestore";
 
-const ShowList=({ bucketObject},{userObj}) => {
+const ShowList=({userObj}) => {
     const [edit, setEdit] = useState(false);
-    const [newBucket, setNewBucket] = useState(bucketObject.text);
+    const [newBucket, setNewBucket] = useState([]);
     const [expiredDate,setNewExpiredDate]=useState(new Date());
     const db=getFirestore();
     const bucketRef=collection(db,"users/"+userObj.uid+"/buckets");
@@ -37,25 +37,15 @@ const ShowList=({ bucketObject},{userObj}) => {
     
     return (
         <section>
-            {edit ? (
-                <div>
-                    <form onSubmit={onSubmit}>
-                        <input onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
-                        <input onChange={onChangeDate} value={expiredDate} type="date" placeholder="마감 기한"/>
-                        <input type="submit" value="업데이트" />
-                    </form>
-                    <button type="button" onClick={isEditing}>수정</button>
-                </div>
-            ) : (
-                <div >
-                    <h3>{bucketObject.text}</h3>
-                    <div>
-                        <span onClick={onClickDelete}>X</span>
-                        <span onClick={isEditing}>O</span>
-                    </div>
-                    <div><button type="checkbox" onClick="Complete"></button> </div>
-                </div>
-            )}
+            <div>
+                <form onSubmit={onSubmit}>
+                    <input onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
+                    <input onChange={onChangeDate} value={expiredDate} type="date" placeholder="마감 기한"/>
+                     <input type="submit" value="업데이트" />
+                </form>
+                <button type="button" onClick={isEditing}>수정</button>
+            </div>
+            
             
         </section>
     );

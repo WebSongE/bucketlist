@@ -91,8 +91,7 @@ const AddBucket = ({userObj}) => {
                 <button type="button">Cancel</button>
             </div>
         </section><section>
-            <ShowBucket userObj={userObj}
-            />
+            <ShowBucket userObj={userObj}/>
             </section></>
     );
 };

@@ -51,7 +51,7 @@ const ShowBucket = ({userObj}) => {
             {buckets.map((bucket) => (
                 <div key={bucket.id}>
                     <div>{bucket.text}</div>
-                    <div>{bucket.tags}</div>
+                    <div>tags {bucket.tags}</div>
                     <div>created {bucket.dateAt}</div>
                     <div>expired {bucket.expiredAt}</div>
                     <div>completed
@@ -62,6 +62,8 @@ const ShowBucket = ({userObj}) => {
                                 onChange={(e) => checkHandler(e)} />
                         </label>
                     </div>
+                    <div>작성자 {userObj.displayName}</div>
+                    
                 </div>
             ))}
         </div>
