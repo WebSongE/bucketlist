@@ -28,6 +28,11 @@ const AddBucket = ({userObj}) => {
         console.log("getTags");
         setTagArray(temp.data().userAllTags);
     }
+    const onKeyPress = e => {
+        if(e.target.value.length !== 0 && e.key ==="#"){
+        submitTag()
+        }
+    }
 
     const onChange = (event) => {
         event.preventDefault();
@@ -56,6 +61,17 @@ const AddBucket = ({userObj}) => {
         setNewTags("");
         getTags();
         setUserTags(new Map());
+    }
+    const submitTag = () => {
+        let updatedTagList = [...tagArray]
+        updatedTagList.push(tags)
+        setTagArray(updatedTagList)
+        setNewTags('#')
+    }
+    const deleteTag = e => {
+        const deleteTag = e.target.parentElement.firstChild.innerText
+        const filteredTagList  = tagArray.filter(tags => tags !== deleteTag)
+        setTagArray(filteredTagList)
     }
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -86,7 +102,24 @@ const AddBucket = ({userObj}) => {
                     <input value={newBucket} type="text" onChange={onChange} placeholder="이루고싶은 일을 적어보세요!" />
                     <input value={expiredDate} type="date" onChange={onChangeDate} placeholder="마감 기한" />
                     <input type="submit" />
-                    <input value={tags} type="text" onChange={onChangeTags} placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다" />
+                    <div>
+                        {tagArray.map((tags, index) => {
+                            return (
+                                <div key={index}>
+                                    {tags}
+                                    <button onClick={deleteTag}>X</button>
+                                </div>
+                            )
+                        })}
+                        <input type='text'
+                        placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다."
+                        tagIndex={2}
+                        onChange={e => setNewTags(e.target.value)}
+                        value={tags}
+                        onKeyPress={onKeyPress}
+                        />
+                    </div>
+                    
                 </form>
                 <button type="button">Cancel</button>
             </div>
