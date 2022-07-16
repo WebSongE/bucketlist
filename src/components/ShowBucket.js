@@ -6,7 +6,10 @@ const ShowBucket = ({userObj}) => {
     const [buckets, setBuckets] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
     const[checkedbuckets, setCheckedbuckets] = useState(new Set());
-
+    
+    const[editing, setEditing] = useState(false);
+    
+ 
     useEffect(async()=>{
         const bucketsRef=collection(getFirestore(),"users/"+userObj.uid+"/buckets");
         //const q = query(bucketsRef, orderBy('dateAt','desc'));
