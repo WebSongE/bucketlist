@@ -48,13 +48,6 @@ const AddBucket = ({userObj}) => {
         } = event;
         setNewExpiredDate(value);
     }
-    const onChangeTags = (event) => {
-        event.preventDefault();
-        const {
-            target: { value },
-        } = event;
-        setNewTags(value);
-    }
     const allInit=()=>{
         console.log("all init");
         setNewBucket("");
@@ -66,7 +59,7 @@ const AddBucket = ({userObj}) => {
         let updatedTagList = [...tagArray]
         updatedTagList.push(tags)
         setTagArray(updatedTagList)
-        setNewTags('#')
+        setNewTags('')
     }
     const deleteTag = e => {
         const deleteTag = e.target.parentElement.firstChild.innerText
@@ -76,8 +69,6 @@ const AddBucket = ({userObj}) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         console.log("onSubmit");
-        if (newBucket === "") return;
-        setTagArray(tags.split('#').join(',').split(' ').join(',').split(','));
         console.log(tagArray);
         await addDoc(bucketRef,{
             text: newBucket,
@@ -85,9 +76,6 @@ const AddBucket = ({userObj}) => {
             expiredAt: expiredDate,
             userId: userObj.uid,
             tags: tagArray
-        });
-        tagArray.forEach((item)=>{
-            if(userTags.has(item)===false) userTags.set(item,true);
         });
         console.log("successed");
         allInit();
@@ -113,7 +101,7 @@ const AddBucket = ({userObj}) => {
                         })}
                         <input type='text'
                         placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다."
-                        tagIndex={2}
+                        tagindex={2}
                         onChange={e => setNewTags(e.target.value)}
                         value={tags}
                         onKeyPress={onKeyPress}
