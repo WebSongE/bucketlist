@@ -1,63 +1,19 @@
 import React, { useEffect } from "react";
-import { getDocs, getFirestore, collection } from "firebase/firestore";
-import { useState } from "react";
+import { orderBy, query, getDocs,getFirestore,collection,toDate } from "firebase/firestore";
+import { useState} from "react";
+import ShowBucket from "./ShowBucket";
+import ShowList from "./showList";
 
-const Home = ({ userObj }) => {
-  const [buckets, setBuckets] = useState([]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    const bucketsRef = collection(
-      getFirestore(),
-      "users/" + userObj.uid + "/buckets"
+const Home = ({userObj}) => {
+    return(
+        <div>
+            <form>
+                <input type="text" placeholder="Write your bucketlist" maxLength={120} />
+            </form>
+            <ShowBucket userObj={userObj}/>
+            <ShowList userObj={userObj} />
+        </div>
     );
-    //const q = query(bucketsRef, orderBy('dateAt','desc'));
-    const temp = await getDocs(bucketsRef);
-    const tempBuckets = [];
-    temp.forEach((doc) => {
-      var created = new Date(doc.data().dateAt);
-      created =
-        created.getFullYear() +
-        "-" +
-        created.getMonth() +
-        "-" +
-        created.getDate();
-      tempBuckets.push({
-        id: doc.id,
-        text: doc.data().text,
-        dateAt: created,
-        expiredAt: doc.data().expiredAt,
-        tags: doc.data().tags,
-        userId: doc.data().userId,
-        user_name: doc.data().user_name,
-      });
-    });
-
-    setBuckets(tempBuckets);
-  }, []);
-
-  return (
-    <div>
-      <form>
-        <input
-          type="text"
-          placeholder="Write your bucketlist"
-          maxLength={120}
-        />
-      </form>
-      <div>
-        {buckets.map((bucket) => (
-          <div key={bucket.id}>
-            <div>{bucket.user_name}</div>
-            <div>{bucket.text}</div>
-            <div>{bucket.tags}</div>
-            <div>created {bucket.dateAt}</div>
-            <div>expired {bucket.expiredAt}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 };
 
 export default Home;
