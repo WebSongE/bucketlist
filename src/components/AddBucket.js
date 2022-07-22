@@ -95,7 +95,7 @@ const AddBucket = ({userObj}) => {
                             return (
                                 <div key={index}>
                                     {tags}
-                                    <button onClick={deleteTag}>X</button>
+                                    <button type="button" onClick={deleteTag}>X</button>
                                 </div>
                             )
                         })}
