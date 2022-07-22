@@ -4,13 +4,7 @@ import { useState} from "react";
 import ShowBucket from "./ShowBucket";
 import ShowList from "./showList";
 
-
 const Home = ({userObj}) => {
-    
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-   
-
     return(
         <div>
             <form>
