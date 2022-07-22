@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import openUser from "./openUser";
+
 const Explore = () => {
   const [userArray, setUserArray] = useState([]);
 

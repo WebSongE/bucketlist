@@ -1,10 +1,10 @@
 import { authService,dbService } from "fbase";
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
-import { collection, orderBy, query, onSnapshot,getFirestore,doc,updateDoc } from "firebase/firestore";
+import { collection, orderBy, query, getDocs, getFirestore,doc,updateDoc, toDate } from "firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import ShowList from "components/showList";
+import ShowBucket from "components/ShowBucket";
 
 
 const Profile=({ userObj })=>{
@@ -39,37 +39,7 @@ const Profile=({ userObj })=>{
             window.location.reload();
         }
     };
-    useEffect(() => {
-        const q = query(collection(dbService, "buckets"), orderBy("expiredDate", "desc"));
-        onSnapshot(q, (snapshot) => {
-          const newArray = snapshot.docs.map((document) => ({
-            id: document.id,
-            ...document.data(),
-          }));
-          setBuckets(newArray);
-        });
-      }, [dbService]);
-    //console.log(userObj.displayName);
-
-    const [isChecked, setIsChecked] = useState(false);
-    const[checkedbuckets, setCheckedbuckets] = useState(new Set());
-
-    const checkHandler = ({ target }) => {
-        setIsChecked(!isChecked);
-        checkedbucketHandler(target.parentNode, target.value, target.checked);
-    };
-
-    const checkedbucketHandler = ( id, isChecked) => {
-        if(isChecked) {
-            checkedbuckets.add(id);
-            setCheckedbuckets(checkedbuckets);
-        }
-        else if (!isChecked && checkedbuckets.has(id)) {
-            checkedbuckets.delete(id);
-            setCheckedbuckets(checkedbuckets);
-        }
-        return checkedbuckets;
-    };
+   
 
     return (
 
@@ -92,22 +62,13 @@ const Profile=({ userObj })=>{
             <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
                 Log Out
             </span>
-            <div>
-                {buckets && buckets.map((bucket) => (
-                    <><ShowList key={bucket.id} bucketObject={bucket} /><label key={buckets.id} className="innerBox">
-                        <input
-                            type="checkbox"
-                            value={buckets.name}
-                            onChange={(e) => checkHandler(e)} />
-                        <div>{buckets.name}</div>
-                    </label></>
-                ))}
-            </div>
+            
+            <ShowBucket userObj={userObj}/>
         </div>
     );
 
        
-}
+};
 
 
 
