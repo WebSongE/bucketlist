@@ -11,7 +11,6 @@ const Home = ({userObj}) => {
                 <input type="text" placeholder="Write your bucketlist" maxLength={120} />
             </form>
             <ShowBucket userObj={userObj}/>
-            <ShowList userObj={userObj} />
         </div>
     );
 };
