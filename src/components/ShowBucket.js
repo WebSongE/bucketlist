@@ -67,7 +67,7 @@ const ShowBucket = ({userObj}) => {
                         </label>
                     </div>
                     <div>작성자 {userObj.displayName}</div>
-                    <ShowList userObj={userObj}/>
+                    <ShowList userObj={userObj} />
                     
                 </div>
             ))}

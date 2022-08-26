@@ -63,7 +63,7 @@ const Profile=({ userObj })=>{
                 Log Out
             </span>
             
-            <ShowBucket userObj={userObj}/>
+            <ShowBucket userObj={userObj} />
         </div>
     );
 
