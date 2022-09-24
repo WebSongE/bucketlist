@@ -35,7 +35,7 @@ const ShowList=({userObj, bucket}) => {
     const onSubmit = async (event) => {
         console.log(bucketRef);
         event.preventDefault();
-        await updateDoc(bucketRef,{ text: newBucket, expiredAt:expiredDate });
+        await updateDoc(bucketRef,{ text: newBucket, expiredAt: expiredDate } );
         window.location.reload();
 
         setEdit(false);
@@ -48,7 +48,7 @@ const ShowList=({userObj, bucket}) => {
                 <button type="button" onClick={onClickDelete}>삭제</button>
                 {edit && <form onSubmit={onSubmit}>
                     <input onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
-                    <input onChange={onChangeDate} value={expiredDate} type="date" placeholder="마감 기한"/>
+                    <input onChange={onChangeDate} value={expiredDate} type="date" required placeholder="마감 기한"/>
                     <input type="submit" value="업데이트" />
                 </form>}
                 

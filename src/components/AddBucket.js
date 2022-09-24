@@ -87,8 +87,8 @@ const AddBucket = ({userObj}) => {
         <><section>
             <div className="AddBucket">
                 <form onSubmit={onSubmit}>
-                    <input value={newBucket} type="text" onChange={onChange} placeholder="이루고싶은 일을 적어보세요!" />
-                    <input value={expiredDate} type="date" onChange={onChangeDate} placeholder="마감 기한" />
+                    <input value={newBucket} type="text" onChange={onChange} required placeholder="이루고싶은 일을 적어보세요!" />
+                    <input value={expiredDate} type="date" onChange={onChangeDate} required placeholder="마감 기한" />
                     <input type="submit" />
                     <div>
                         {tagArray.map((tags, index) => {
