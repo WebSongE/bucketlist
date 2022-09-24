@@ -1,18 +1,20 @@
 import { useState } from "react";
-import {deleteDoc, collection,getFirestore,updateDoc, doc} from "firebase/firestore";
+import {deleteDoc, collection,getFirestore,updateDoc, doc, getDoc} from "firebase/firestore";
 import Bucket from "./bucket";
 
-const ShowList=({userObj, bucketObj}) => {
+const ShowList=({userObj, bucket}) => {
     const [edit, setEdit] = useState(false);
     const [newBucket, setNewBucket] = useState([]);
     const [expiredDate,setNewExpiredDate]=useState(new Date());
     const db=getFirestore();
-    const bucketRef=collection(db,`users/${userObj.uid}/buckets`);
+
+    const bucketRef=doc(db,"users/"+userObj.uid+"/buckets/" +bucket.id );
 
     const onClickDelete = async (event) => {
         const confirm = window.confirm("정말로 삭제하시겠습니까?");
         if (confirm) {
            await deleteDoc(bucketRef);
+           window.location.reload();
 
         }
     };
@@ -34,6 +36,7 @@ const ShowList=({userObj, bucketObj}) => {
         console.log(bucketRef);
         event.preventDefault();
         await updateDoc(bucketRef,{ text: newBucket, expiredAt:expiredDate });
+        window.location.reload();
 
         setEdit(false);
     };
