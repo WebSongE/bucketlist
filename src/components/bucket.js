@@ -41,21 +41,18 @@ const Bucket = ({ userObj }) => {
     });
   });
 
-  setBuckets(tempBuckets);
-
-    return (
-        <div>
-            <AddBucket userObj={userObj} />
-            <div>
-                {buckets.map((bucket) => (
-                    <div key={bucket.id}>
-                        <div>{bucket.text}</div>
-                        
-                    </div>
-                ))}
-            </div>
-        </div>
-        );
-}
+  return (
+    <div>
+      <AddBucket userObj={userObj} />
+      <div>
+        {buckets.map((bucket) => (
+          <div key={bucket.id}>
+            <div>{bucket.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Bucket;
