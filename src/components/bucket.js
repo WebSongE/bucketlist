@@ -7,7 +7,7 @@ import {
   query,
   onSnapshot,
   getFirestore,
-  getDocs,
+  getDoc,
 } from "firebase/firestore";
 
 const Bucket = ({ userObj }) => {
@@ -28,7 +28,7 @@ const Bucket = ({ userObj }) => {
     "users/" + userObj.uid + "/buckets"
   );
   //const q = query(bucketsRef, orderBy('dateAt','desc'));
-  const temp = getDocs(bucketsRef);
+  const temp = getDoc(bucketsRef);
   const tempBuckets = [];
   temp.forEach((doc) => {
     tempBuckets.push({

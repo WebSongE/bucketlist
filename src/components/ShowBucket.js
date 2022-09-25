@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {  collection, orderBy, query, getDocs, getFirestore,doc,updateDoc, toDate } from "firebase/firestore";
+import ShowList from "./showList";
 
 const ShowBucket = ({userObj}) => {
     
@@ -66,6 +67,7 @@ const ShowBucket = ({userObj}) => {
                         </label>
                     </div>
                     <div>작성자 {userObj.displayName}</div>
+                    <ShowList userObj={userObj} bucket = {bucket} />
                     
                 </div>
             ))}

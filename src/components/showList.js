@@ -1,36 +1,42 @@
 import { useState } from "react";
-import {deleteDoc,collection,getFirestore,updateDoc} from "firebase/firestore";
+import {deleteDoc, collection,getFirestore,updateDoc, doc, getDoc} from "firebase/firestore";
+import Bucket from "./bucket";
 
-const ShowList=({userObj}) => {
+const ShowList=({userObj, bucket}) => {
     const [edit, setEdit] = useState(false);
     const [newBucket, setNewBucket] = useState([]);
     const [expiredDate,setNewExpiredDate]=useState(new Date());
     const db=getFirestore();
-    const bucketRef=collection(db,"users/"+userObj.uid+"/buckets");
+
+    const bucketRef=doc(db,"users/"+userObj.uid+"/buckets/" +bucket.id );
+
     const onClickDelete = async (event) => {
         const confirm = window.confirm("정말로 삭제하시겠습니까?");
         if (confirm) {
            await deleteDoc(bucketRef);
+           window.location.reload();
 
         }
     };
     const onChange = (event) => {
-        const {
+        /*const {
             target: { value },
-        } = event;
-        setNewBucket(value);
+        } = event;*/
+        setNewBucket(event.target.value);
     };
     const onChangeDate = (event) => {
         event.preventDefault();
-        const {
+        /*const {
             target: { value },
-        } = event;
-        setNewExpiredDate(value);
+        } = event;*/
+        setNewExpiredDate(event.target.value);
     }
-    const isEditing = () => setEdit((prev) => !prev);
+    //const isEditing = () => setEdit((prev) => !prev);
     const onSubmit = async (event) => {
+        console.log(bucketRef);
         event.preventDefault();
-        await updateDoc(bucketRef,{ text: newBucket });
+        await updateDoc(bucketRef,{ text: newBucket, expiredAt: expiredDate } );
+        window.location.reload();
 
         setEdit(false);
     };
@@ -38,12 +44,14 @@ const ShowList=({userObj}) => {
     return (
         <section>
             <div>
-                <form onSubmit={onSubmit}>
+                <button type="submit" onClick={() => {setEdit(!edit);}}>{edit ? "취소" :"수정"}</button>
+                <button type="button" onClick={onClickDelete}>삭제</button>
+                {edit && <form onSubmit={onSubmit}>
                     <input onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
-                    <input onChange={onChangeDate} value={expiredDate} type="date" placeholder="마감 기한"/>
-                     <input type="submit" value="업데이트" />
-                </form>
-                <button type="button" onClick={isEditing}>수정</button>
+                    <input onChange={onChangeDate} value={expiredDate} type="date" required placeholder="마감 기한"/>
+                    <input type="submit" value="업데이트" />
+                </form>}
+                
             </div>
             
             
