@@ -29,15 +29,22 @@ const AddBucket = ({ userObj }) => {
 		const getTags = async () => {
 			const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 			const temp = await getDoc(tagRef);
-			setTagArray(temp.data().userAllTags);
+
+			if(temp.data().userAllTags){
+            	setTagArray(temp.data().userAllTags);
+        	}
 		};
 		getTags();
 	}, []);
 	const getTags = async () => {
 		const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 		const temp = await getDoc(tagRef);
-		console.log("getTags");
-		setTagArray(temp.data().userAllTags);
+
+		//console.log("getTags");
+        if(temp.data().userAllTags){
+            setTagArray(temp.data().userAllTags);
+        }
+		
 	};
 	const onKeyPress = (e) => {
 		if (e.target.value.length !== 0 && e.key === "#") {
