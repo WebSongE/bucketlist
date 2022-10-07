@@ -144,7 +144,6 @@ const AddBucket = ({ userObj }) => {
 							/>
 						</div>
 						<button type="button">Cancel</button>
-						<button type="button">Cancel</button>
 					</form>
 				</div>
 			</section>
