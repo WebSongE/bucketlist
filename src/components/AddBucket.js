@@ -30,8 +30,8 @@ const AddBucket = ({ userObj }) => {
 			const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 			const temp = await getDoc(tagRef);
 			if(temp.data().userAllTags){
-            setTagArray(temp.data().userAllTags);
-        }
+            	etTagArray(temp.data().userAllTags);
+        	}
 		};
 		getTags();
 	}, []);
