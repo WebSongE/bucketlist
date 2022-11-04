@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {  collection, orderBy, query, getDocs, getFirestore,doc,updateDoc, toDate } from "firebase/firestore";
 import ShowList from "./showList";
 
-const ShowBucket = ({userObj}) => {
+const ShowBucket = ({userObj, bucket}) => {
     
     const [buckets, setBuckets] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
@@ -27,6 +27,7 @@ const ShowBucket = ({userObj}) => {
                     'expiredAt':doc.data().expiredAt,
                     'tags':doc.data().tags,
                     'userId':doc.data().userId,
+                    'complete':doc.data().complete,
                 }
             );
         });
@@ -35,17 +36,23 @@ const ShowBucket = ({userObj}) => {
     },[]);
     const checkHandler = ({ target }) => {
         setIsChecked(!isChecked);
+        target.preventDefault();
         checkedbucketHandler(target.parentNode, target.value, target.checked);
     };
 
     const checkedbucketHandler = ( id, isChecked) => {
+        const bucketRef=collection(getFirestore(),"users/"+userObj.uid+"/buckets"+bucket.id );
         if(isChecked) {
             checkedbuckets.add(id);
             setCheckedbuckets(checkedbuckets);
+            updateDoc(bucketRef,{ complete: true } );
+            window.location.reload();
+            
         }
         else if (!isChecked && checkedbuckets.has(id)) {
             checkedbuckets.delete(id);
             setCheckedbuckets(checkedbuckets);
+           
         }
         return checkedbuckets;
     };
@@ -62,13 +69,13 @@ const ShowBucket = ({userObj}) => {
                         <label className="innerBox">
                             <input
                                 type="checkbox"
-                                value={buckets.text}
+                                value={bucket.complete}
                                 onChange={(e) => checkHandler(e)} />
                         </label>
                     </div>
                     <div>작성자 {userObj.displayName}</div>
-                    <ShowList userObj={userObj} bucket = {bucket} />
                     
+                    <ShowList userObj={userObj} bucket = {bucket} />
                 </div>
             ))}
         </div>

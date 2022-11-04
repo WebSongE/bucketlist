@@ -92,6 +92,7 @@ const AddBucket = ({ userObj }) => {
 			expiredAt: expiredDate,
 			userId: userObj.uid,
 			tags: tagArray,
+			complete: false,
 		});
 		console.log("successed");
 		allInit();
