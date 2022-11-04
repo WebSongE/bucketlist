@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getDocs, getFirestore, collection } from "firebase/firestore";
 import { useParams } from "react-router-dom";
+
+
 function OpenUser(props) {
 	const [buckets, setBuckets] = useState([]);
 	let { userId } = useParams();
@@ -51,6 +53,7 @@ function OpenUser(props) {
 						<div>{bucket.tags}</div>
 						<div>created {bucket.dateAt}</div>
 						<div>expired {bucket.expiredAt}</div>
+						<Like
 					</div>
 				))}
 			</div>
