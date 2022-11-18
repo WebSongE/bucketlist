@@ -29,6 +29,7 @@ const AddBucket = ({ userObj }) => {
 		const getTags = async () => {
 			const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 			const temp = await getDoc(tagRef);
+
 			if(temp.data().userAllTags){
             	setTagArray(temp.data().userAllTags);
         	}
@@ -38,6 +39,7 @@ const AddBucket = ({ userObj }) => {
 	const getTags = async () => {
 		const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 		const temp = await getDoc(tagRef);
+
 		//console.log("getTags");
         if(temp.data().userAllTags){
             setTagArray(temp.data().userAllTags);
