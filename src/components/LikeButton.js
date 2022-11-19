@@ -1,33 +1,52 @@
-import { useState, useEffect } from "react";
+import heart from "static/images/heart.svg";
+import emptyHeart from "static/images/emptyHeart.svg";
+import { useState } from "react";
 import {
+	getFirestore,
 	doc,
 	updateDoc,
-	getFirestore,
-	collection,
-	query,
-	updateDoc,
+	arrayUnion,
+	arrayRemove,
 } from "firebase/firestore";
-import { useParams } from "react-router-dom";
-import heart from "static/images/heart.svg";
 
-const LikeButton = () => {
+const LikeButton = ({ bucket, user }) => {
 	const [click, setClick] = useState(false);
 	const isClick = () => setClick((click) => !click);
-	const onButtonClick = async ({ userId, currentUserId, bucketId }) => {
+
+	const onLikeClick = (e) => {
+		isClick();
+		if (click) like(e.target.value);
+		else unlike(e.target.value);
+	};
+
+	const like = async () => {
+		console.log("click");
 		const bucketRef = doc(
 			getFirestore(),
-			`users/${userId}/buckets/${bucketId}`
+			`users/${user}/buckets/${bucket}`
 		);
 		await updateDoc(bucketRef, {
-			like: bucketRef.data().liked.exist()
-				? bucketRef.data().liked + 1
-				: 1,
+			like: arrayUnion({ user }),
+		});
+	};
+
+	const unlike = async () => {
+		console.log("unclick");
+		const bucketRef = doc(
+			getFirestore(),
+			`users/${user}/buckets/${bucket}`
+		);
+		await updateDoc(bucketRef, {
+			like: arrayRemove({ user }),
 		});
 	};
 	return (
-		<button onClick={onButtonClick(userId, currentUserId, bucketId)}>
-			<img src={heart} />
-		</button>
+		<img
+			style={{ width: "1em", height: "1em" }}
+			src={like ? heart : emptyHeart}
+			alt="heart"
+			onClick={onLikeClick}
+		/>
 	);
 };
 
