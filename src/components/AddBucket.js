@@ -148,9 +148,13 @@ const AddBucket = ({ userObj }) => {
 					</form>
 				</div>
 			</section>
-			<section>
-				<ShowBucket userObj={userObj} />
-			</section>
+			<div>
+        		{buckets.map((bucket) => (
+          		<div key={bucket.id}>
+            		<ShowBucket userObj={userObj} bucket = {bucket}/>
+          		</div>
+        		))}
+      		</div>
 		</>
 	);
 };
