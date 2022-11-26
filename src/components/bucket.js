@@ -38,6 +38,7 @@ const Bucket = ({ userObj }) => {
       expiredAt: doc.data().expiredAt,
       tags: doc.data().tags,
       userId: doc.data().userId,
+      complete:doc.data().complete,
     });
   });
 

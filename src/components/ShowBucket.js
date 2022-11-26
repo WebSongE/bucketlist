@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {  collection, orderBy, query, getDocs, getFirestore,doc,updateDoc, toDate } from "firebase/firestore";
 import ShowList from "./showList";
 
-const ShowBucket = ({userObj}) => {
+const ShowBucket = ({userObj, bucket}) => {
     
     const [buckets, setBuckets] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
@@ -27,25 +27,34 @@ const ShowBucket = ({userObj}) => {
                     'expiredAt':doc.data().expiredAt,
                     'tags':doc.data().tags,
                     'userId':doc.data().userId,
+                    'complete':doc.data().complete,
                 }
             );
         });
         
         setBuckets(tempBuckets);
     },[]);
-    const checkHandler = ({ target }) => {
+    /*const checkHandler = ({ id, isChecked }) => {
         setIsChecked(!isChecked);
-        checkedbucketHandler(target.parentNode, target.value, target.checked);
-    };
+        checkedbucketHandler(id, isChecked);
+    };*/
 
-    const checkedbucketHandler = ( id, isChecked) => {
+    const checkedbucketHandler = async ( id, bucketid, isChecked) => {
+        const bucketRef=doc(getFirestore(),"users/"+userObj.uid+"/buckets/"+bucketid );
         if(isChecked) {
             checkedbuckets.add(id);
             setCheckedbuckets(checkedbuckets);
+            await updateDoc(bucketRef,{ complete: true } );
+            window.location.reload();
+            
         }
-        else if (!isChecked && checkedbuckets.has(id)) {
+        else if (!isChecked) {
             checkedbuckets.delete(id);
+            await updateDoc(bucketRef,{ complete: false } );
             setCheckedbuckets(checkedbuckets);
+            
+            window.location.reload();
+           
         }
         return checkedbuckets;
     };
@@ -62,13 +71,13 @@ const ShowBucket = ({userObj}) => {
                         <label className="innerBox">
                             <input
                                 type="checkbox"
-                                value={buckets.text}
-                                onChange={(e) => checkHandler(e)} />
+                                checked={bucket.complete ? true : false}
+                                onChange={(e) => checkedbucketHandler(e, bucket.id, e.target.checked)} />
                         </label>
                     </div>
                     <div>작성자 {userObj.displayName}</div>
-                    <ShowList userObj={userObj} bucket = {bucket} />
                     
+                    <ShowList userObj={userObj} bucket = {bucket} />
                 </div>
             ))}
         </div>
