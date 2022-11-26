@@ -39,8 +39,8 @@ const ShowBucket = ({userObj, bucket}) => {
         checkedbucketHandler(id, isChecked);
     };*/
 
-    const checkedbucketHandler = async ( id, isChecked) => {
-        const bucketRef=doc(getFirestore(),"users/"+userObj.uid+"/buckets/"+id );
+    const checkedbucketHandler = async ( id, bucketid, isChecked) => {
+        const bucketRef=doc(getFirestore(),"users/"+userObj.uid+"/buckets/"+bucketid );
         if(isChecked) {
             checkedbuckets.add(id);
             setCheckedbuckets(checkedbuckets);
@@ -48,10 +48,11 @@ const ShowBucket = ({userObj, bucket}) => {
             window.location.reload();
             
         }
-        else if (!isChecked && checkedbuckets.has(id)) {
+        else if (!isChecked) {
             checkedbuckets.delete(id);
-            setCheckedbuckets(checkedbuckets);
             await updateDoc(bucketRef,{ complete: false } );
+            setCheckedbuckets(checkedbuckets);
+            
             window.location.reload();
            
         }
@@ -70,7 +71,8 @@ const ShowBucket = ({userObj, bucket}) => {
                         <label className="innerBox">
                             <input
                                 type="checkbox"
-                                onChange={(e) => checkedbucketHandler(bucket.id, e.target.checked)} />
+                                checked={bucket.complete ? true : false}
+                                onChange={(e) => checkedbucketHandler(e, bucket.id, e.target.checked)} />
                         </label>
                     </div>
                     <div>작성자 {userObj.displayName}</div>
