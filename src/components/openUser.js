@@ -1,9 +1,20 @@
 import { useState, useEffect } from "react";
-import { getDocs, getFirestore, collection } from "firebase/firestore";
+import {
+	getDocs,
+	getFirestore,
+	collection,
+	doc,
+	updateDoc,
+	arrayUnion,
+	arrayRemove,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
+import LikeButton from "./LikeButton";
+
 function OpenUser(props) {
 	const [buckets, setBuckets] = useState([]);
 	let { userId } = useParams();
+
 	useEffect(() => {
 		const getBuckets = async () => {
 			const bucketsRef = collection(
@@ -51,6 +62,7 @@ function OpenUser(props) {
 						<div>{bucket.tags}</div>
 						<div>created {bucket.dateAt}</div>
 						<div>expired {bucket.expiredAt}</div>
+						<LikeButton bucket={bucket.id} user={userId} />
 					</div>
 				))}
 			</div>
