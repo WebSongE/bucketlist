@@ -94,6 +94,7 @@ const AddBucket = ({ userObj }) => {
 			expiredAt: expiredDate,
 			userId: userObj.uid,
 			tags: tagArray,
+			complete: false,
 		});
 		console.log("successed");
 		allInit();
@@ -147,9 +148,13 @@ const AddBucket = ({ userObj }) => {
 					</form>
 				</div>
 			</section>
-			<section>
-				<ShowBucket userObj={userObj} />
-			</section>
+			<div>
+        		{buckets.map((bucket) => (
+          		<div key={bucket.id}>
+            		<ShowBucket userObj={userObj} bucket = {bucket}/>
+          		</div>
+        		))}
+      		</div>
 		</>
 	);
 };
