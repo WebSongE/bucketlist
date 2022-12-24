@@ -7,6 +7,7 @@ import {
 	updateDoc,
 } from "firebase/firestore";
 import ShowList from "./showList";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 const ShowBucket = ({ userObj, bucket }) => {
 	const [buckets, setBuckets] = useState([]);
