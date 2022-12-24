@@ -29,15 +29,22 @@ const AddBucket = ({ userObj }) => {
 		const getTags = async () => {
 			const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 			const temp = await getDoc(tagRef);
-			setTagArray(temp.data().userAllTags);
+
+			if(temp.data().userAllTags){
+            	setTagArray(temp.data().userAllTags);
+        	}
 		};
 		getTags();
 	}, []);
 	const getTags = async () => {
 		const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 		const temp = await getDoc(tagRef);
-		console.log("getTags");
-		setTagArray(temp.data().userAllTags);
+
+		//console.log("getTags");
+        if(temp.data().userAllTags){
+            setTagArray(temp.data().userAllTags);
+        }
+		
 	};
 	const onKeyPress = (e) => {
 		if (e.target.value.length !== 0 && e.key === "#") {
@@ -87,6 +94,7 @@ const AddBucket = ({ userObj }) => {
 			expiredAt: expiredDate,
 			userId: userObj.uid,
 			tags: tagArray,
+			complete: false,
 		});
 		console.log("successed");
 		allInit();
@@ -137,13 +145,16 @@ const AddBucket = ({ userObj }) => {
 							/>
 						</div>
 						<button type="button">Cancel</button>
-						<button type="button">Cancel</button>
 					</form>
 				</div>
 			</section>
-			<section>
-				<ShowBucket userObj={userObj} />
-			</section>
+			<div>
+        		{buckets.map((bucket) => (
+          		<div key={bucket.id}>
+            		<ShowBucket userObj={userObj} bucket = {bucket}/>
+          		</div>
+        		))}
+      		</div>
 		</>
 	);
 };
