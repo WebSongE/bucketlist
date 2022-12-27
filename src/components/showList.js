@@ -44,12 +44,16 @@ const ShowList=({userObj, bucket}) => {
     return (
         <section>
             <div>
-                <button type="submit" onClick={() => {setEdit(!edit);}}>{edit ? "취소" :"수정"}</button>
-                <button type="button" onClick={onClickDelete}>삭제</button>
+                <button class ="bg-white p-1 border border-black rounded-md" type="submit" onClick={() => {setEdit(!edit);}}>
+                    {edit ? "취소" :"수정"}
+                </button>
+                <button class ="bg-white p-1 mx-1 border border-black rounded-md" type="button" onClick={onClickDelete}>
+                    삭제
+                </button>
                 {edit && <form onSubmit={onSubmit}>
-                    <input onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
-                    <input onChange={onChangeDate} value={expiredDate} type="date" required placeholder="마감 기한"/>
-                    <input type="submit" value="업데이트" />
+                    <input class = " border border-black" onChange={onChange} value={newBucket} required placeholder="내용 수정" autoFocus />
+                    <input class = " border border-black" onChange={onChangeDate} value={expiredDate} type="date" required placeholder="마감 기한"/>
+                    <input class ="bg-white p-1 mx-1 border border-black rounded-md" type="submit" value="업데이트" />
                 </form>}
                 
             </div>
