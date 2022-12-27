@@ -61,14 +61,16 @@ const ShowBucket = ({userObj, bucket}) => {
     };
 
     return (
-        <div>
+        <div className="flex flex-wrap justify-start">
             {buckets.map((bucket) => (
-                <div key={bucket.id}>
+                <div key={bucket.id} className="ml-5 p-3 bg-yellow-200 space-y-1.5" >
                     <div>{bucket.text}</div>
-                    <div>tags {bucket.tags}</div>
-                    <div>created {bucket.dateAt}</div>
-                    <div>expired {bucket.expiredAt}</div>
-                    <div>completed
+                    <div>태그:  {bucket.tags}</div>
+                    <div class="flex flex-auto justify-items-start space-x-3">
+                        <div>생성일자:  {bucket.dateAt}</div>
+                        <div>만료일자:  {bucket.expiredAt}</div>
+                    </div>
+                    <div>완료
                         <label className="innerBox">
                             <input
                                 type="checkbox"

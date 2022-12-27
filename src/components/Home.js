@@ -13,15 +13,19 @@ import ShowList from "./showList";
 
 const Home = ({ userObj }) => {
 	return (
-		<div>
-			<form>
+		<div class="md:flex flex-col">
+			<form  class=" w-screen">
 				<input
+					class="m-10 place-self-center rounded-md border border-3 border-black text-center w-10/12"
 					type="text"
 					placeholder="Write your bucketlist"
 					maxLength={120}
 				/>
 			</form>
-			<ShowBucket userObj={userObj} />
+			<div>
+				<ShowBucket userObj={userObj} />
+			</div>
+			
 		</div>
 	);
 };
