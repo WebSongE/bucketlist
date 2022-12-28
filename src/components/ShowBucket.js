@@ -63,7 +63,10 @@ const ShowBucket = ({userObj, bucket}) => {
     return (
         <div className="flex flex-wrap justify-start">
             {buckets.map((bucket) => (
-                <div key={bucket.id} className="ml-5 p-3 bg-yellow-200 space-y-1.5" >
+                <div key={bucket.id} className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5 " >
+                    <div class=" float-right">
+                        <ShowList userObj={userObj} bucket = {bucket} />
+                    </div>
                     <div>{bucket.text}</div>
                     <div>태그:  {bucket.tags}</div>
                     <div class="flex flex-auto justify-items-start space-x-3">
@@ -80,7 +83,6 @@ const ShowBucket = ({userObj, bucket}) => {
                     </div>
                     <div>작성자 {userObj.displayName}</div>
                     
-                    <ShowList userObj={userObj} bucket = {bucket} />
                 </div>
             ))}
         </div>
