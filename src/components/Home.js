@@ -13,7 +13,7 @@ import ShowList from "./showList";
 
 const Home = ({ userObj }) => {
 	return (
-		<div class="md:flex flex-col ">
+		<div class="md:flex flex-col">
 			<form  class=" w-screen text-center">
 				<input
 					class="m-10 place-self-center rounded-md border border-3 border-black text-center w-10/12"
@@ -25,7 +25,6 @@ const Home = ({ userObj }) => {
 			<div>
 				<ShowBucket userObj={userObj} />
 			</div>
-			
 		</div>
 	);
 };
