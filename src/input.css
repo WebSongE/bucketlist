@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav_link {
+	@apply outline outline-4 rounded-t-2xl outline-black pt-2 text-xl font-bold bg-white flex-1 w-48;
+}
+.nav_link:hover {
+	@apply bg-lime-200;
+}
+.nav_link:active {
+	@apply bg-lime-500;
+}

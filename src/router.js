@@ -6,6 +6,7 @@ import Profile from "routes/Profile.js";
 import Home from "components/Home";
 import Explore from "components/Explore";
 import OpenUser from "components/openUser";
+import "tailwindcss/tailwind.css";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
 	return (
