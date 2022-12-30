@@ -40,7 +40,6 @@ const ShowBucket = ({ userObj, bucket }) => {
 				});
 			});
 
-<<<<<<< HEAD
 			setBuckets(tempBuckets);
 		};
 		bucketLoad();
@@ -67,15 +66,23 @@ const ShowBucket = ({ userObj, bucket }) => {
 	};
 
 	return (
-		<div>
+		<div className="flex flex-wrap justify-start">
 			{buckets.map((bucket) => (
-				<div key={bucket.id}>
+				<div
+					key={bucket.id}
+					className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5 "
+				>
+					<div class=" float-right">
+						<ShowList userObj={userObj} bucket={bucket} />
+					</div>
 					<div>{bucket.text}</div>
-					<div>tags {bucket.tags}</div>
-					<div>created {bucket.dateAt}</div>
-					<div>expired {bucket.expiredAt}</div>
+					<div>태그: {bucket.tags}</div>
+					<div class="flex flex-auto justify-items-start space-x-3">
+						<div>생성일자: {bucket.dateAt}</div>
+						<div>만료일자: {bucket.expiredAt}</div>
+					</div>
 					<div>
-						completed
+						완료
 						<label className="innerBox">
 							<input
 								type="checkbox"
@@ -91,41 +98,10 @@ const ShowBucket = ({ userObj, bucket }) => {
 						</label>
 					</div>
 					<div>작성자 {userObj.displayName}</div>
-
-					<ShowList userObj={userObj} bucket={bucket} />
 				</div>
 			))}
 		</div>
 	);
-=======
-    return (
-        <div className="flex flex-wrap justify-start">
-            {buckets.map((bucket) => (
-                <div key={bucket.id} className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5 " >
-                    <div class=" float-right">
-                        <ShowList userObj={userObj} bucket = {bucket} />
-                    </div>
-                    <div>{bucket.text}</div>
-                    <div>태그:  {bucket.tags}</div>
-                    <div class="flex flex-auto justify-items-start space-x-3">
-                        <div>생성일자:  {bucket.dateAt}</div>
-                        <div>만료일자:  {bucket.expiredAt}</div>
-                    </div>
-                    <div>완료
-                        <label className="innerBox">
-                            <input
-                                type="checkbox"
-                                checked={bucket.complete ? true : false}
-                                onChange={(e) => checkedbucketHandler(e, bucket.id, e.target.checked)} />
-                        </label>
-                    </div>
-                    <div>작성자 {userObj.displayName}</div>
-                    
-                </div>
-            ))}
-        </div>
-    );
->>>>>>> 6006a391e6d82ba0960512019f26bcad2e20433b
 };
 
 export default ShowBucket;
