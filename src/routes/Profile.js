@@ -43,23 +43,23 @@ const Profile=({ userObj })=>{
 
     return (
 
-        <div className="container">
-            <form onSubmit={onSubmit} className="profileForm">
+        <div className="container md:flex flex-col">
+            <form onSubmit={onSubmit} className="profileForm md:flex flex-col">
                 <input
                     onChange={onChange}
                     type="text"
                     placeholder="Display name"
                     value={newDisplayName}
                     autoFocus
-                    className="formInput" />
+                    className="formInput m-5 place-self-center rounded-md border border-3 border-black text-center text-2xl" />
                 <input
                     type="submit"
                     value="Update Profile"
-                    className="formBtn"
+                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-2xl"
                      />
 
             </form>
-            <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-2xl" onClick={onLogOutClick}>
                 Log Out
             </span>
             
