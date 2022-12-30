@@ -13,8 +13,8 @@ import ShowList from "./showList";
 
 const Home = ({ userObj }) => {
 	return (
-		<div>
-			<form>
+		<div className="w-150 bg-cyan-200">
+			<form className="bg-cyan-300 flex justify-center">
 				<input
 					type="text"
 					placeholder="Write your bucketlist"
