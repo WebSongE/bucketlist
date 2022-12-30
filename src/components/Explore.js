@@ -30,7 +30,10 @@ const Explore = ({ user }) => {
 	}, [userArray]);
 
 	return (
-		<div>
+		<div className="md:flex flex-col ">
+			<div className="font-bold text-center px-5 py-3 text-2xl ">
+				다른 사람들의 버킷리스트를 구경해보세요!
+			</div>
 			{userArray.map((user) => (
 				<div key={user.userId}>
 					{user.user_name == null ? (
