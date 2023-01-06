@@ -16,17 +16,17 @@ const Explore = ({ user }) => {
 		const userRef = collection(db, "users");
 		const q = query(userRef, where("userId", "!=", null));
 		console.log("explore");
-		return onSnapshot(
-		 		q,
-		 		(querySnapshot) => {
-		 			const userTempArray = [];
-		 			querySnapshot.forEach((doc) => {
-		 				userTempArray.push(doc.data());
-		 			});
-		 			setUserArray(userTempArray);
-		 		},
-		 		[]
-		 	);
+		// 	return onSnapshot(
+		// 		q,
+		// 		(querySnapshot) => {
+		// 			const userTempArray = [];
+		// 			querySnapshot.forEach((doc) => {
+		// 				userTempArray.push(doc.data());
+		// 			});
+		// 			setUserArray(userTempArray);
+		// 		},
+		// 		[]
+		// 	);
 	}, [userArray]);
 
 	return (
