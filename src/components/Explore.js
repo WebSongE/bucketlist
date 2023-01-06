@@ -1,9 +1,10 @@
+import { async } from "@firebase/util";
 import {
 	getFirestore,
 	collection,
 	query,
 	where,
-	onSnapshot,
+	getDocs,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -12,22 +13,15 @@ const Explore = ({ user }) => {
 	const [userArray, setUserArray] = useState([]);
 
 	useEffect(() => {
-		const db = getFirestore();
-		const userRef = collection(db, "users");
-		const q = query(userRef, where("userId", "!=", null));
-		console.log("explore");
-		// 	return onSnapshot(
-		// 		q,
-		// 		(querySnapshot) => {
-		// 			const userTempArray = [];
-		// 			querySnapshot.forEach((doc) => {
-		// 				userTempArray.push(doc.data());
-		// 			});
-		// 			setUserArray(userTempArray);
-		// 		},
-		// 		[]
-		// 	);
-	}, [userArray]);
+		const getUser = async () => {
+			const q = await getDocs(collection(getFirestore(), "users"));
+			const userTempArray = [];
+			q.forEach((doc) => userTempArray.push(doc.data()));
+			setUserArray(userTempArray);
+			console.log(userTempArray);
+		};
+		getUser();
+	}, []);
 
 	return (
 		<div>
