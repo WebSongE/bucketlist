@@ -5,6 +5,7 @@ import {
 	orderBy,
 	query,
 	getFirestore,
+	getDocs,
 	getDoc,
 } from "firebase/firestore";
 
@@ -15,7 +16,7 @@ const Bucket = ({ userObj }) => {
 		"users/" + userObj.uid + "/buckets"
 	);
 	useEffect((bucketsRef) => {
-		const q = query(bucketsRef, orderBy("dateAt", "desc"));
+		const q = getDocs(query(bucketsRef, orderBy("dateAt", "desc")));
 		console.log("print");
 		const newArray = q.docs.map((document) => ({
 			id: document.id,
