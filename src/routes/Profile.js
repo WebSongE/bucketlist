@@ -43,8 +43,8 @@ const Profile=({ userObj })=>{
 
     return (
 
-        <div className="container md:flex flex-col">
-            <form onSubmit={onSubmit} className="profileForm md:flex flex-col">
+        <div className="container md:flex flex-col ">
+            <form onSubmit={onSubmit} className="profileForm md:flex flex-col ">
                 <input
                     onChange={onChange}
                     type="text"
@@ -55,11 +55,11 @@ const Profile=({ userObj })=>{
                 <input
                     type="submit"
                     value="Update Profile"
-                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-2xl"
+                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl"
                      />
 
             </form>
-            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-2xl" onClick={onLogOutClick}>
+            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl" onClick={onLogOutClick}>
                 Log Out
             </span>
             
