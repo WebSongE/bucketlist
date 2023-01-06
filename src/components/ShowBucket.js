@@ -70,14 +70,14 @@ const ShowBucket = ({ userObj, bucket }) => {
 			{buckets.map((bucket) => (
 				<div
 					key={bucket.id}
-					className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5 "
+					className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5"
 				>
-					<div class=" float-right">
+					<div className=" float-right">
 						<ShowList userObj={userObj} bucket={bucket} />
 					</div>
 					<div>{bucket.text}</div>
 					<div>태그: {bucket.tags}</div>
-					<div class="flex flex-auto justify-items-start space-x-3">
+					<div className="flex flex-auto justify-items-start space-x-3">
 						<div>생성일자: {bucket.dateAt}</div>
 						<div>만료일자: {bucket.expiredAt}</div>
 					</div>
