@@ -29,7 +29,7 @@ const Explore = ({ user }) => {
 				다른 사람들의 버킷리스트를 구경해보세요!
 			</div>
 			{userArray.map((user) => (
-				<div key={user.userId} class="flex flex-auto justify-items-start space-x-3">
+				<div key={user.userId} class="flex flex-auto justify-items-start ml-10 my-3">
 					<img src="pic/pen.png" />
 					{user.user_name == null ? (
 						<Link to={`/user_detail/${user.userId}`} class="py-10">
