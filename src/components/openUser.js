@@ -53,22 +53,26 @@ function OpenUser(props) {
 	}, [props, userId]);
 
 	return (
-		<div>
-			<form>
+		<div class="md:flex flex-col">
+			<form class=" w-screen text-center">
 				<input
+					className="m-10 place-self-center rounded-md border border-3 border-black text-center w-10/12"
 					type="text"
 					placeholder="Write your bucketlist"
 					maxLength={120}
 				/>
 			</form>
-			<div>
+			<div className="flex flex-wrap justify-start">
 				{buckets.map((bucket) => (
-					<div key={bucket.id}>
+					<div key={bucket.id}
+						className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5">
 						<div>{bucket.user_name}</div>
 						<div>{bucket.text}</div>
-						<div>{bucket.tags}</div>
-						<div>created {bucket.dateAt}</div>
-						<div>expired {bucket.expiredAt}</div>
+						<div>태그: {bucket.tags}</div>
+						<div className="flex flex-auto justify-items-start space-x-3">
+							<div>생성일자: {bucket.dateAt}</div>
+							<div>만료일자: {bucket.expiredAt}</div>
+						</div>
 						<LikeButton
 							click={bucket.user_liked}
 							bucket={bucket.id}

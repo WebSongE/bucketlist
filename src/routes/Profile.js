@@ -43,8 +43,8 @@ const Profile=({ userObj })=>{
 
     return (
 
-        <div className="container md:flex flex-col ">
-            <form onSubmit={onSubmit} className="profileForm md:flex flex-col ">
+        <div className="container flex flex-col ">
+            <form onSubmit={onSubmit} className="profileForm flex flex-col ">
                 <input
                     onChange={onChange}
                     type="text"
@@ -62,7 +62,6 @@ const Profile=({ userObj })=>{
             <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl" onClick={onLogOutClick}>
                 Log Out
             </span>
-            
             <ShowBucket userObj={userObj} />
         </div>
     );
