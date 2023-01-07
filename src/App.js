@@ -27,7 +27,7 @@ function App() {
 	};
 
 	return (
-		<div className="grid max-w-full bg-red-100">
+		<div className="grid max-w-full">
 			{init ? (
 				<AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
 			) : (

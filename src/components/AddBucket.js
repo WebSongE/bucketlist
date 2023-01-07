@@ -30,9 +30,9 @@ const AddBucket = ({ userObj }) => {
 			const tagRef = doc(getFirestore(), "users/" + userObj.uid);
 			const temp = await getDoc(tagRef);
 
-			if(temp.data().userAllTags){
-            	setTagArray(temp.data().userAllTags);
-        	}
+			if (temp.data().userAllTags) {
+				setTagArray(temp.data().userAllTags);
+			}
 		};
 		getTags();
 	}, []);
@@ -41,10 +41,9 @@ const AddBucket = ({ userObj }) => {
 		const temp = await getDoc(tagRef);
 
 		//console.log("getTags");
-        if(temp.data().userAllTags){
-            setTagArray(temp.data().userAllTags);
-        }
-		
+		if (temp.data().userAllTags) {
+			setTagArray(temp.data().userAllTags);
+		}
 	};
 	const onKeyPress = (e) => {
 		if (e.target.value.length !== 0 && e.key === "#") {
@@ -103,24 +102,40 @@ const AddBucket = ({ userObj }) => {
 
 	return (
 		<>
-			<section>
-				<div className="AddBucket">
-					<form onSubmit={onSubmit}>
+			<section className="flex flex-col items-center mt-[10rem]">
+				<div className="flex-1">
+					<form
+						onSubmit={onSubmit}
+						className="flex flex-col items-center gap-y-3"
+					>
 						<input
+							className="border-b-[3px] border-black w-[30rem] flex-1  text-center"
 							value={newBucket}
 							type="text"
 							onChange={onChange}
 							required
 							placeholder="이루고싶은 일을 적어보세요!"
 						/>
+						<div className="bg-[#d9d9d9] w-96 py-1 text-center flex flex-row">
+							<span className="w-10 mt-1 ml-2">태그</span>
+							<input
+								className="bg-[#d9d9d9] w-96 py-1 text-center inline-block"
+								type="text"
+								placeholder="공백없이 '#'으로 태그를 추가해보세요"
+								tagindex={2}
+								onChange={(e) => setNewTags(e.target.value)}
+								value={tags}
+								onKeyPress={onKeyPress}
+							/>
+						</div>
 						<input
+							className="bg-[#d9d9d9] w-96 py-1 text-center"
 							value={expiredDate}
 							type="date"
 							onChange={onChangeDate}
 							required
 							placeholder="마감 기한"
 						/>
-						<input type="submit" />
 						<div>
 							{tagArray.map((tags, index) => {
 								return (
@@ -135,26 +150,31 @@ const AddBucket = ({ userObj }) => {
 									</div>
 								);
 							})}
-							<input
-								type="text"
-								placeholder="공백없이 '#'으로 태그를 추가할 수 있습니다."
-								tagindex={2}
-								onChange={(e) => setNewTags(e.target.value)}
-								value={tags}
-								onKeyPress={onKeyPress}
-							/>
 						</div>
-						<button type="button">Cancel</button>
+						<div className="flex gap-x-3">
+							<button
+								className="w-28 py-1 rounded-xl border-[3px] border-black bg-buttonColor"
+								type="button"
+							>
+								취소
+							</button>
+							<button
+								className="w-28 py-1 rounded-xl border-black border-[3px] bg-buttonColor2"
+								type="submit"
+							>
+								제출
+							</button>
+						</div>
 					</form>
 				</div>
 			</section>
 			<div>
-        		{buckets.map((bucket) => (
-          		<div key={bucket.id}>
-            		<ShowBucket userObj={userObj} bucket = {bucket}/>
-          		</div>
-        		))}
-      		</div>
+				{buckets.map((bucket) => (
+					<div key={bucket.id}>
+						<ShowBucket userObj={userObj} bucket={bucket} />
+					</div>
+				))}
+			</div>
 		</>
 	);
 };
