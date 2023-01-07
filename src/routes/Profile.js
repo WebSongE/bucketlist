@@ -43,7 +43,7 @@ const Profile=({ userObj })=>{
 
     return (
 
-        <div className="container flex flex-col ">
+        <div className=" flex flex-col ">
             <form onSubmit={onSubmit} className="profileForm flex flex-col ">
                 <input
                     onChange={onChange}

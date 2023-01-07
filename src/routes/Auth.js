@@ -80,7 +80,7 @@ const Auth = () => {
     };
     return (
         <div className="flex flex-col">
-            <div className="font-extrabold place-self-center px-5 py-3 mt-10 text-6xl">BUCKETLIST</div>
+            <img className="place-self-center px-5 py-3 mt-20 mb-10" src="pic/bucketlist.png" />
             <form onSubmit={onSubmit} className="flex flex-col">
                 <input
                     name="email"
@@ -89,7 +89,7 @@ const Auth = () => {
                     required
                     value={email}
                     onChange={onChange}
-                    className="mt-10 text-slate-700 bg-neutral-200/50 place-self-center rounded-md text-center text-l w-10/12"
+                    className="mt-10 text-slate-700 bg-neutral-200/50 place-self-center text-center text-l w-10/12"
                 />
                 <input
                     name="password"
@@ -98,12 +98,14 @@ const Auth = () => {
                     required
                     value={password}
                     onChange={onChange}
-                    className="m-10 text-slate-700 bg-neutral-200/50 place-self-center rounded-md text-center text-l w-10/12"
+                    className="m-10 text-slate-700 bg-neutral-200/50 place-self-center text-center text-l w-10/12"
                 />
                 <input type="submit" className="bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 mt-5 text-l" value={newAccount ? "Create Account" : "Log In"} />
-                {error}
+                <div className=" my-5 place-self-center font-bold text-center text-l">
+                    {error}
+                </div>
             </form>
-            <button onClick={toggleAccount} className="bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-l">{newAccount ? "Sign in " : "Create Account "}</button>
+            <button onClick={toggleAccount} className="bg-buttonColor2 mb-5 font-bold place-self-center rounded-lg px-5 py-3 text-l">{newAccount ? "Sign in " : "Create Account "}</button>
             <br />
             <button onClick={onSocialClick} className="flex flex-auto justify-items-start bg-white my-5 px-5 py-3 font-bold border border-3 border-black text-center place-self-center rounded-full" name="google">
                 <img src="pic/google.png" />
