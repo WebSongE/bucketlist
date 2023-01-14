@@ -24,22 +24,25 @@ const Explore = ({ user }) => {
 	}, []);
 
 	return (
-		<div className="md:flex flex-col ">
+		<div className="md:flex flex-col items-center">
 			<div className="font-bold text-center px-5 py-3 text-2xl ">
 				다른 사람들의 버킷리스트를 구경해보세요!
 			</div>
-			{userArray.map((user) => (
-				<div key={user.userId} class="flex flex-auto justify-items-start ml-10 my-3">
-					<img src="pic/pen.png" />
-					{user.user_name == null ? (
-						<Link to={`/user_detail/${user.userId}`} class="pl-3 py-10">
-							<span class= "font-extrabold">익명</span>
-						</Link>
-					) : (
-						<span class= "pl-3 py-10 font-extrabold">{user.user_name}</span>
-					)}
-				</div>
-			))}
+			<div className="flex flex-col items-center">
+				{userArray.map((user) => (
+					<div key={user.userId} class="flex flex-auto justify-items-start ml-10 my-3">
+						<img src="pic/pen.png" />
+						{user.user_name == null ? (
+							<Link to={`/user_detail/${user.userId}`} class="pl-3 py-10">
+								<span class= "font-extrabold">익명</span>
+							</Link>
+						) : (
+							<span class= "pl-3 py-10 font-extrabold">{user.user_name}</span>
+						)}
+					</div>
+				))}
+			</div>
+			
 		</div>
 	);
 };

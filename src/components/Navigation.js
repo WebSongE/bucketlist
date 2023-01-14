@@ -48,7 +48,7 @@ const Navigation = ({ userObj }) => {
 							path === "/explore" ? "bg-lime-400" : "bg-white"
 						} hover:bg-lime-200 active:bg-lime-500 border-black border-x-[3px] border-t-[3px] rounded-t-2xl py-[5px] text-xl font-bold flex-1 w-48`}
 					>
-						explore3
+						explore
 					</li>
 				</Link>
 			</ul>
