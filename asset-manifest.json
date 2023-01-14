@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/bucketlist/static/css/main.6110a8ba.css",
+    "main.js": "/bucketlist/static/js/main.fda0de08.js",
+    "static/media/emptyHeart.svg": "/bucketlist/static/media/emptyHeart.f03c7223e13df20ce02290447a1ed2d7.svg",
+    "static/media/heart.svg": "/bucketlist/static/media/heart.27fc29c7499319cdb5227006b9c57256.svg",
+    "index.html": "/bucketlist/index.html",
+    "main.6110a8ba.css.map": "/bucketlist/static/css/main.6110a8ba.css.map",
+    "main.fda0de08.js.map": "/bucketlist/static/js/main.fda0de08.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6110a8ba.css",
+    "static/js/main.fda0de08.js"
+  ]
+}
