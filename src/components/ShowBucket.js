@@ -66,7 +66,7 @@ const ShowBucket = ({ userObj, bucket }) => {
 	};
 
 	return (
-		<div className="flex flex-wrap justify-start">
+		<div className="flex flex-wrap justify-start cursor-default">
 			{buckets.map((bucket) => (
 				<div
 					key={bucket.id}

@@ -43,23 +43,24 @@ const Profile=({ userObj })=>{
 
     return (
 
-        <div className=" flex flex-col ">
+        <div className=" flex flex-col mt-[10rem]">
+            
             <form onSubmit={onSubmit} className="profileForm flex flex-col ">
                 <input
                     onChange={onChange}
                     type="text"
-                    placeholder="Display name"
+                    placeholder={userObj.displayName}
                     value={newDisplayName}
                     autoFocus
                     className="formInput m-5 place-self-center rounded-md border border-3 border-black text-center text-2xl" />
                 <input
                     type="submit"
                     value="Update Profile"
-                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl"
+                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl cursor-pointer"
                      />
 
             </form>
-            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl" onClick={onLogOutClick}>
+            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl cursor-pointer" onClick={onLogOutClick}>
                 Log Out
             </span>
             <ShowBucket userObj={userObj} />
