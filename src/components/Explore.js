@@ -24,7 +24,7 @@ const Explore = ({ user }) => {
 	}, []);
 
 	return (
-		<div className="md:flex flex-col items-center">
+		<div className="md:flex flex-col items-center mt-[10rem]">
 			<div className="font-bold text-center px-5 py-3 text-2xl ">
 				다른 사람들의 버킷리스트를 구경해보세요!
 			</div>
