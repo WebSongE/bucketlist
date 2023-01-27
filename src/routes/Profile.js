@@ -65,10 +65,10 @@ const Profile = ({ userObj }) => {
 					<input
 						type="submit"
 						value="Update Profile"
-						className="formBtn w-44 bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl cursor-pointer"
+						className="formBtn border-[3px] border-black w-44 bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl cursor-pointer"
 					/>
 					<span
-						className="formBtn cancelBtn w-36 logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl cursor-pointer"
+						className="formBtn cancelBtn border-[3px] border-black w-36 logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl cursor-pointer"
 						onClick={onLogOutClick}
 					>
 						Log Out

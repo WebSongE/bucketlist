@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import pen from 'pic/pen.png';
 
 const Explore = ({ user }) => {
 	const [userArray, setUserArray] = useState([]);
@@ -34,7 +35,7 @@ const Explore = ({ user }) => {
 						key={user.userId}
 						class="flex flex-auto items-center ml-10 my-3"
 					>
-						<img src="pic/pen.png" />
+						<img src={pen} />
 						{user.user_name == null ? (
 							<Link
 								to={`/user_detail/${user.userId}`}
