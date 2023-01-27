@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import pen from 'pic/pen.png';
 
 const Explore = ({ user }) => {
 	const [userArray, setUserArray] = useState([]);
@@ -31,7 +32,7 @@ const Explore = ({ user }) => {
 			<div className="flex flex-col items-center">
 				{userArray.map((user) => (
 					<div key={user.userId} class="flex flex-auto justify-items-start ml-10 my-3">
-						<img src="pic/pen.png" />
+						<img src={pen} />
 						{user.user_name == null ? (
 							<Link to={`/user_detail/${user.userId}`} class="pl-3 py-10">
 								<span class= "font-extrabold">익명</span>

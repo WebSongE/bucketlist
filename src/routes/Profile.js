@@ -56,11 +56,11 @@ const Profile=({ userObj })=>{
                 <input
                     type="submit"
                     value="Update Profile"
-                    className="formBtn bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl cursor-pointer"
+                    className="formBtn border-[3px] border-black bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 text-xl cursor-pointer"
                      />
 
             </form>
-            <span className="formBtn cancelBtn logOut bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl cursor-pointer" onClick={onLogOutClick}>
+            <span className="formBtn cancelBtn border-[3px] border-black bg-buttonColor2 my-5 font-bold place-self-center rounded-lg px-5 py-3 text-xl cursor-pointer" onClick={onLogOutClick}>
                 Log Out
             </span>
             <ShowBucket userObj={userObj} />
