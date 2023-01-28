@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import pen from 'pic/pen.png';
+import pen from "pic/pen.png";
 
 const Explore = ({ user }) => {
 	const [userArray, setUserArray] = useState([]);
@@ -44,9 +44,14 @@ const Explore = ({ user }) => {
 								<span class="font-extrabold">익명</span>
 							</Link>
 						) : (
-							<span class="pl-3 py-10 font-extrabold">
-								{user.user_name}
-							</span>
+							<Link
+								to={`/user_detail/${user.userId}`}
+								class="pl-3 py-10"
+							>
+								<span class="font-extrabold">
+									{user.user_name}
+								</span>
+							</Link>
 						)}
 					</div>
 				))}
