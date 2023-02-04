@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import {
 	getDocs,
+	getDoc,
 	getFirestore,
 	collection,
 	doc,
-	updateDoc,
-	arrayUnion,
-	arrayRemove,
 } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import LikeButton from "./LikeButton";
@@ -19,8 +17,9 @@ function OpenUser(props) {
 	useEffect(() => {
 		const getUserLikedList = async () => {
 			const userRef = doc(getFirestore(), `users/${userId}`);
-			const temp = await getDocs(userRef);
+			const temp = await getDoc(userRef);
 			setUserLiked(temp.data().userLiked);
+			console.log(userLiked);
 		};
 		const getBuckets = async () => {
 			const bucketsRef = collection(
@@ -46,15 +45,16 @@ function OpenUser(props) {
 					user_name: doc.data().user_name,
 				});
 			});
+			console.log("here - get bucket doc");
 			return setBuckets(tempBuckets);
 		};
-		getBuckets();
 		getUserLikedList();
-	}, [props, userId]);
+		getBuckets();
+	}, []);
 
 	return (
-		<div class="md:flex flex-col">
-			<form class=" w-screen text-center">
+		<div className="md:flex flex-col">
+			<form className=" w-screen text-center">
 				<input
 					className="m-10 place-self-center rounded-md border border-3 border-black text-center w-10/12"
 					type="text"
@@ -64,8 +64,10 @@ function OpenUser(props) {
 			</form>
 			<div className="flex flex-wrap justify-start">
 				{buckets.map((bucket) => (
-					<div key={bucket.id}
-						className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5">
+					<div
+						key={bucket.id}
+						className="ml-5 my-2.5 p-3 bg-yellow-200 space-y-1.5"
+					>
 						<div>{bucket.user_name}</div>
 						<div>{bucket.text}</div>
 						<div>태그: {bucket.tags}</div>

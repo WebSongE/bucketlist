@@ -20,7 +20,7 @@ const AddBucket = ({ userObj }) => {
 	const [tagArray, setTagArray] = useState([]);
 	const [userTags, setUserTags] = useState(new Map());
 	const [expiredDate, setNewExpiredDate] = useState(new Date());
-	const [buckets, setBuckets] = useState([]);
+	const [buckets,  setBuckets] =useState([]);
 
 	const db = getFirestore();
 	const bucketRef = collection(db, "users/" + userObj.uid + "/buckets");
