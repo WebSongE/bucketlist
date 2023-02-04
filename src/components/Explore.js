@@ -1,11 +1,4 @@
-import { async } from "@firebase/util";
-import {
-	getFirestore,
-	collection,
-	query,
-	where,
-	getDocs,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import pen from "pic/pen.png";
@@ -33,22 +26,22 @@ const Explore = ({ user }) => {
 				{userArray.map((user) => (
 					<div
 						key={user.userId}
-						class="flex flex-auto items-center ml-10 my-3"
+						className="flex flex-auto items-center ml-10 my-3"
 					>
-						<img src={pen} />
+						<img src={pen} alt="user_image" />
 						{user.user_name == null ? (
 							<Link
 								to={`/user_detail/${user.userId}`}
-								class="pl-3 py-10"
+								className="pl-3 py-10"
 							>
-								<span class="font-extrabold">익명</span>
+								<span className="font-extrabold">익명</span>
 							</Link>
 						) : (
 							<Link
 								to={`/user_detail/${user.userId}`}
-								class="pl-3 py-10"
+								className="pl-3 py-10"
 							>
-								<span class="font-extrabold">
+								<span className="font-extrabold">
 									{user.user_name}
 								</span>
 							</Link>
