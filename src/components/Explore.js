@@ -49,6 +49,7 @@ const Explore = ({ user }) => {
 					</div>
 				))}
 			</div>
+			
 		</div>
 	);
 };
