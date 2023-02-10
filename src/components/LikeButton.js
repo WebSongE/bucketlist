@@ -1,5 +1,5 @@
-import heart from "static/images/heart.svg";
-import emptyHeart from "static/images/emptyHeart.svg";
+import heart from "pic/heart.svg";
+import emptyHeart from "pic/emptyHeart.svg";
 import { useState, useLayoutEffect } from "react";
 import { getAuth } from "firebase/auth";
 import {
