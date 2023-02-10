@@ -148,10 +148,10 @@ const Auth = () => {
                     onChange={onChange}
                     className="m-10 text-slate-700 bg-neutral-200/50 place-self-center text-center text-l w-10/12"
                 />
-                <input type="submit" className="bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 mt-5 text-l" value={newAccount ? "Create Account" : "Log In"} />
+                <input type="submit" className="bg-buttonColor place-self-center rounded-lg font-bold px-5 py-3 mt-5 text-l cursor-pointer" value={newAccount ? "Create Account" : "Log In"} />
                 
             </form>
-            <button onClick={toggleAccount} className="bg-buttonColor2 m-5 font-bold place-self-center rounded-lg px-5 py-3 text-l">{newAccount ? "Sign in " : "Create Account "}</button>
+            <button onClick={toggleAccount} className="bg-buttonColor2 m-5 font-bold place-self-center rounded-lg px-5 py-3 text-l cursor-pointer">{newAccount ? "Sign in " : "Create Account "}</button>
             <br />
             <button onClick={onSocialClick} className="flex flex-auto justify-items-start bg-white my-5 px-5 py-3 font-bold border border-3 border-black text-center place-self-center rounded-full" name="google">
                 <img src= {googleimg} />
