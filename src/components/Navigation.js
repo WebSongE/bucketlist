@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 const Navigation = ({ userObj }) => {
-	const [path, setPath] = useState(window.location.pathname);
+	const [path, setPath] = useState("");
+	useLayoutEffect(() => {
+		setPath(window.location.pathname);
+	}, []);
 	const clickPath = (clicked) => {
 		console.log(path);
 		setPath(clicked);
