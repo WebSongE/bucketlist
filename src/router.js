@@ -10,7 +10,7 @@ import "tailwindcss/tailwind.css";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
 	return (
-		<BrowserRouter basename="/bucketlist">
+		<BrowserRouter basename="/">
 			{isLoggedIn && (
 				<div>
 					<Navigation userObj={userObj} />

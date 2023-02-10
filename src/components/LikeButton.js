@@ -13,6 +13,7 @@ import {
 
 const LikeButton = ({ bucket, user }) => {
 	const [click, setClick] = useState(false);
+	const [count, setCount] = useState(0);
 	const isClick = () => setClick((click) => !click);
 	const currentUser = getAuth().currentUser;
 
@@ -24,7 +25,21 @@ const LikeButton = ({ bucket, user }) => {
 			//사용자가 좋아요를 누른 리스트에 버킷이 있다면 true 아니면 false
 			setClick(likedArray.find((e) => e === bucket) !== undefined);
 		};
+		const setHowManyLiked = async () => {
+			const bucketRef = doc(
+				getFirestore(),
+				`users/${user}/buckets/${bucket}`
+			);
+			const temp = await getDoc(bucketRef);
+			const likedUser = temp.data().like;
+			try {
+				setCount(likedUser.length);
+			} catch (error) {
+				setCount(0);
+			}
+		};
 		setClicked();
+		setHowManyLiked();
 	}, []);
 
 	const onLikeClick = (e) => {
@@ -44,6 +59,7 @@ const LikeButton = ({ bucket, user }) => {
 		await updateDoc(doc(getFirestore(), `users/${currentUser.uid}`), {
 			userLiked: arrayUnion(bucket),
 		});
+		setCount(count + 1);
 	};
 
 	const unlike = async () => {
@@ -57,14 +73,18 @@ const LikeButton = ({ bucket, user }) => {
 		await updateDoc(doc(getFirestore(), `users/${currentUser.uid}`), {
 			userLiked: arrayRemove(bucket),
 		});
+		setCount(count - 1);
 	};
 	return (
-		<img
-			style={{ width: "1em", height: "1em" }}
-			src={click ? heart : emptyHeart}
-			alt="heart"
-			onClick={onLikeClick}
-		/>
+		<div className="flex flex-auto items-center gap-x-3">
+			<img
+				style={{ width: "1em", height: "1em" }}
+				src={click ? heart : emptyHeart}
+				alt="heart"
+				onClick={onLikeClick}
+			/>
+			<span>{count !== 0 ? count : ""}</span>
+		</div>
 	);
 };
 
