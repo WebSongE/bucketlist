@@ -1,5 +1,5 @@
 {
-	"homepage": "https://bucketlistbywebsonge.netlify.app/bucketlist",
+	"homepage": "./bucketlist",
 	"name": "bucket",
 	"version": "0.1.0",
 	"private": true,
